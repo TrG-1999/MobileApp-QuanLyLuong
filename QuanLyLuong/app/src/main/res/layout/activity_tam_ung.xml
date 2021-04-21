@@ -5,70 +5,124 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".QuanLyPhongBan">
+    tools:context=".TamUng">
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/textView20"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="#2196F3"
         android:gravity="center"
-        android:text="Quản Lý Phòng Ban"
+        android:text="Tạm ứng"
         android:textColor="#ffffff"
         android:textSize="30sp"
         android:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="35dp"
         android:layout_marginTop="8dp"
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/textView3"
-            android:layout_width="135dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:text="Mã Phòng Ban"
+            android:id="@+id/textView15"
+            android:layout_width="109dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.1"
+            android:gravity="center_vertical"
+            android:paddingLeft="5dp"
+            android:text="Số phiếu"
             android:textSize="18sp" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName2"
+            android:id="@+id/editTextTextPersonName4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="0.6"
             android:ems="10"
-            android:hint="Nhập mã phòng ban"
-            android:inputType="textPersonName"
-            android:textSize="18sp" />
+            android:inputType="textPersonName" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="35dp"
         android:layout_marginTop="8dp"
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/textView12"
-            android:layout_width="135dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:text="Tên Phòng Ban"
+            android:id="@+id/textView17"
+            android:layout_width="109dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.1"
+            android:gravity="center_vertical"
+            android:paddingLeft="5dp"
+            android:text="Ngày ứng"
             android:textSize="18sp" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName3"
+            android:id="@+id/editTextDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="0.6"
             android:ems="10"
-            android:hint="Nhập tên phòng ban"
-            android:inputType="textPersonName"
-            android:textSize="18sp" />
+            android:inputType="date" />
+
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="69dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView19"
+            android:layout_width="241dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.1"
+            android:gravity="center_vertical"
+            android:paddingLeft="5dp"
+            android:text="Mã NV"
+            android:textSize="18sp" />
+
+        <Spinner
+            android:id="@+id/spinner2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.1" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView18"
+            android:layout_width="48dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.1"
+            android:gravity="center_vertical"
+            android:paddingLeft="5dp"
+            android:text="Số tiền"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/editTextNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:ems="10"
+            android:inputType="number" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
         android:orientation="horizontal">
 
         <Button
@@ -76,7 +130,7 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="8dp"
+            android:layout_margin="5dp"
             android:layout_weight="0.25"
             android:text="Xóa"
             app:backgroundTint="#E91E63" />
@@ -86,7 +140,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="8dp"
+            android:layout_margin="5dp"
             android:layout_weight="0.25"
             android:text="Chỉnh sửa"
             android:textColor="#000000"
@@ -97,7 +151,7 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="8dp"
+            android:layout_margin="5dp"
             android:layout_weight="0.3"
             android:text="Thêm"
             app:backgroundTint="#4CAF50" />
@@ -117,7 +171,7 @@
                 android:layout_column="1"
                 android:layout_weight="0.5"
                 android:padding="3dp"
-                android:text="Mã Phòng Ban"
+                android:text="Số phiếu"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -127,7 +181,27 @@
                 android:layout_column="2"
                 android:layout_weight="0.5"
                 android:padding="3dp"
-                android:text="Tên Phòng Ban"
+                android:text="Ngày ứng"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="3"
+                android:layout_weight="0.5"
+                android:padding="3dp"
+                android:text="Mã NV"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="4"
+                android:layout_weight="0"
+                android:padding="3dp"
+                android:text="Số tiền"
                 android:textSize="18sp"
                 android:textStyle="bold" />
         </TableRow>
@@ -146,15 +220,34 @@
                 android:layout_column="1"
                 android:layout_weight="0.5"
                 android:padding="3dp"
-                android:text="P01"
+                android:text="PH01"
                 android:textSize="16sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_column="2"
                 android:layout_weight="0.5"
                 android:padding="3dp"
-                android:text="Hành Chính"
+                android:text="05/01/2018"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="3"
+                android:layout_weight="0.5"
+                android:padding="3dp"
+                android:text="NV1"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="4"
+                android:layout_weight="0"
+                android:padding="3dp"
+                android:text="2.000.000"
                 android:textSize="16sp" />
         </TableRow>
 
@@ -172,15 +265,34 @@
                 android:layout_column="1"
                 android:layout_weight="0.5"
                 android:padding="3dp"
-                android:text="P02"
+                android:text="PH02"
                 android:textSize="16sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_column="2"
                 android:layout_weight="0.5"
                 android:padding="3dp"
-                android:text="Kinh doanh"
+                android:text="08/01/2018"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="3"
+                android:layout_weight="0.5"
+                android:padding="3dp"
+                android:text="NV2"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="4"
+                android:layout_weight="0"
+                android:padding="3dp"
+                android:text="1.500.000"
                 android:textSize="16sp" />
         </TableRow>
 
@@ -198,6 +310,4 @@
         android:layout_marginRight="10dp"
         android:text="Trang Quản Lý"
         app:backgroundTint="#E91E63" />
-
-
 </LinearLayout>
