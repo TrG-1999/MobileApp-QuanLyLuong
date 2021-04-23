@@ -24,7 +24,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/btn_phongban"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
@@ -34,7 +34,7 @@
             app:backgroundTint="#11B118" />
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/btn_nhanvien"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
@@ -50,7 +50,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/button8"
+            android:id="@+id/btn_chamcong"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
@@ -60,7 +60,7 @@
             app:backgroundTint="#11B118" />
 
         <Button
-            android:id="@+id/button9"
+            android:id="@+id/btn_tamung"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
@@ -71,7 +71,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/button10"
+        android:id="@+id/btn_theodoiphongban"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -82,7 +82,7 @@
         app:backgroundTint="#3F51B5" />
 
     <Button
-        android:id="@+id/button11"
+        android:id="@+id/btn_thoat"
         android:layout_width="240dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
