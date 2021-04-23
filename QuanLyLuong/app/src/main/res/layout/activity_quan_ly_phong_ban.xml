@@ -152,6 +152,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_column="2"
                 android:layout_weight="0.5"
                 android:padding="3dp"
                 android:text="Hành Chính"
@@ -178,6 +179,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_column="2"
                 android:layout_weight="0.5"
                 android:padding="3dp"
                 android:text="Kinh doanh"
@@ -188,16 +190,6 @@
             android:layout_height="2dip"
             android:background="#101010" />
     </TableLayout>
-
-    <Button
-        android:id="@+id/button7"
-        android:layout_width="142dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="10dp"
-        android:text="Trang Quản Lý"
-        app:backgroundTint="#E91E63" />
 
 
 </LinearLayout>
