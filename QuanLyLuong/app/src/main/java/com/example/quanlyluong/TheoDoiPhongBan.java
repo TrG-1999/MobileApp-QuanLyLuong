@@ -2,15 +2,13 @@ package com.example.quanlyluong;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 
-public class ChamCong extends AppCompatActivity {
+public class TheoDoiPhongBan extends AppCompatActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cham_cong);
+        setContentView(R.layout.activity_theo_doi_phong_ban);
     }
 }
