@@ -49,4 +49,14 @@ public class TamUng {
     public void setSoTien(int soTien) {
         this.soTien = soTien;
     }
+
+    @Override
+    public String toString() {
+        return "TamUng{" +
+                "soPhieu=" + soPhieu +
+                ", ngay=" + ngay +
+                ", maNV=" + maNV +
+                ", soTien=" + soTien +
+                '}';
+    }
 }

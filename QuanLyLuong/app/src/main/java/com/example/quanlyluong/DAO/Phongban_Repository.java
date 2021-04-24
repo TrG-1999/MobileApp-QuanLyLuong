@@ -93,4 +93,5 @@ public class Phongban_Repository extends DatabaseHelper implements DAO<PhongBan>
         if(cursor.moveToFirst()) return true;
         return false;
     }
+
 }

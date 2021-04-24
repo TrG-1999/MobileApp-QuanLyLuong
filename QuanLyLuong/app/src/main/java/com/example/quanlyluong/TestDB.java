@@ -2,6 +2,7 @@ package com.example.quanlyluong;
 
 import android.os.Bundle;
 
+import com.example.quanlyluong.DAO.ChamCong_Repository;
 import com.example.quanlyluong.DAO.DatabaseHelper;
 import com.example.quanlyluong.DAO.NV_Repository;
 import com.example.quanlyluong.DAO.Phongban_Repository;
@@ -18,6 +19,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -35,21 +37,20 @@ public class TestDB extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try {
-                    Phongban_Repository temp = new Phongban_Repository(TestDB.this);
-                    temp.create(new PhongBan(0, "Hello"));
-                    temp.update(new PhongBan(6,"Hello con cac"));
-//                    temp.update(new Phong)
-                    List<PhongBan> list = temp.getAll();
+                    ChamCong_Repository tempCC = new ChamCong_Repository(TestDB.this);
+                    com.example.quanlyluong.Data.ChamCong cc = new com.example.quanlyluong.Data.ChamCong();
+                    cc.setMaNV(1);
+                    cc.setNgayGhiSo(new Date(System.currentTimeMillis()));
+                    cc.setSoNgayCong    (3);
+                    tempCC.create(cc);
                     String tempStr = "";
-                    for(PhongBan i : list) tempStr += i.getTenPB() + " ";
+                    List<com.example.quanlyluong.Data.ChamCong> listPB = tempCC.getAll();
+                    for(com.example.quanlyluong.Data.ChamCong i : listPB) tempStr += i.getSoNgayCong() + " ";
                     txtTest.setText(tempStr);
 
-
-//                    Snackbar.make(view, tempStr, Snackbar.LENGTH_LONG)
-//                            .setAction("Action", null).show();
                 }
                 catch (Exception e){
-                    txtTest.setText(e.getMessage());
+                    txtTest.setText("ERROR: " + e.getMessage());
                 }
             }
         });

@@ -59,4 +59,15 @@ public class NV {
         this.maPB = maPB;
         this.mucLuong = mucLuong;
     }
+
+    @Override
+    public String toString() {
+        return "NV{" +
+                "maNV=" + maNV +
+                ", hoTen='" + hoTen + '\'' +
+                ", ngaySinh=" + ngaySinh +
+                ", maPB=" + maPB +
+                ", mucLuong=" + mucLuong +
+                '}';
+    }
 }

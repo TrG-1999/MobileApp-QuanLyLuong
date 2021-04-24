@@ -29,7 +29,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     @Override
+    public void onConfigure(SQLiteDatabase db) {
+        db.setForeignKeyConstraintsEnabled(true);
+        super.onConfigure(db);
+    }
+
+    @Override
     public void onCreate(SQLiteDatabase db) {
+        String createST2 = "CREATE TABLE PHONGBAN(\n" +
+                "  MAPB INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
+                "  TENPB TEXT NOT NULL\n" +
+                ");";
+        db.execSQL(createST2);
         String createST = "CREATE TABLE NHANVIEN(\n" +
                 "  \tMANV INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
                 "  \tHOTEN TEXT NOT NULL,\n" +
@@ -38,7 +49,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "  \tMUCLUONG INT NOT NULL,\n" +
                 " \tCONSTRAINT fk_PHONGBAN_NV\n" +
                 "    \tFOREIGN KEY (MAPB)\n" +
-                "    \tREFERENCES PHONGBANM(MAPB)\n" +
+                "    \tREFERENCES PHONGBAN(MAPB)\n" +
                 "\tON DELETE CASCADE\n" +
                 " )";
         db.execSQL(createST);
@@ -52,16 +63,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "    \tREFERENCES NHANVIEN(MANV)\n" +
                 " );";
         db.execSQL(createST1);
-        String createST2 = "CREATE TABLE PHONGBAN(\n" +
-                "  MAPB INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
-                "  TENPB TEXT NOT NULL\n" +
-                ");";
-        db.execSQL(createST2);
         String createST3 = "CREATE TABLE CHAMCONG(\n" +
                 "   MANV INTEGER NOT NULL,\n" +
                 "   NGAYGHISO DATETIME NOT NULL,\n" +
                 "   SONGAYCONG INTEGER NOT NULL,\n" +
-                "   PRIMARY KEY(MANV, NGAYGHISO)\n" +
+                "   PRIMARY KEY(MANV, NGAYGHISO),\n" +
+                "   CONSTRAINT fk_CHAMCONG_NV\n" +
+                "    \tFOREIGN KEY (MANV)\n" +
+                "    \tREFERENCES NHANVIEN(MANV)\n" +
                 ");";
         db.execSQL(createST3);
     }

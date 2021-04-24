@@ -39,4 +39,13 @@ public class ChamCong {
         this.ngayGhiSo = ngayGhiSo;
         this.soNgayCong = soNgayCong;
     }
+
+    @Override
+    public String toString() {
+        return "ChamCong{" +
+                "maNV=" + maNV +
+                ", ngayGhiSo=" + ngayGhiSo +
+                ", soNgayCong=" + soNgayCong +
+                '}';
+    }
 }

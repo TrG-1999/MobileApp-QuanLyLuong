@@ -36,32 +36,16 @@
       <change beforePath="$PROJECT_DIR$/.gradle/6.5/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.5/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_activity_activity_1_0_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_arch_core_core_runtime_2_0_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_customview_customview_1_0_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_drawerlayout_drawerlayout_1_0_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_fragment_fragment_1_1_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_common_2_1_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_livedata_core_2_0_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_runtime_2_1_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_viewmodel_2_1_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/app/QuanLyLuong.app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/app/QuanLyLuong.app.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/quanlyluong/DAO/ChamCong_Repository.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/quanlyluong/DAO/ChamCong_Repository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/quanlyluong/DAO/DatabaseHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/quanlyluong/DAO/DatabaseHelper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/quanlyluong/DAO/NV_Repository.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/quanlyluong/DAO/NV_Repository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/quanlyluong/DAO/Phongban_Repository.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/quanlyluong/DAO/Phongban_Repository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/quanlyluong/QuanLyPhongBan.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/quanlyluong/QuanLyPhongBan.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_cham_cong.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_cham_cong.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_quan_ly_nhan_vien.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_quan_ly_nhan_vien.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_quan_ly_phong_ban.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_quan_ly_phong_ban.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_tam_ung.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_tam_ung.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/themes.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/themes.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/quanlyluong/Data/ChamCong.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/quanlyluong/Data/ChamCong.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/quanlyluong/Data/NV.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/quanlyluong/Data/NV.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/quanlyluong/Data/PhongBan.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/quanlyluong/Data/PhongBan.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/quanlyluong/Data/TamUng.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/quanlyluong/Data/TamUng.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/quanlyluong/TestDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/quanlyluong/TestDB.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -213,10 +197,15 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="1245" y="246" key="#com.intellij.ide.util.MemberChooser" timestamp="1619166054976">
+    <state x="1245" y="246" key="#com.intellij.ide.util.MemberChooser" timestamp="1619240962385">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
+    <state x="1245" y="246" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1080/-1080.-357.1080.1920@0.0.1920.1080" timestamp="1619240962385" />
     <state x="1245" y="246" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1080@0.0.1920.1080" timestamp="1619166054976" />
+    <state x="640" y="196" key="#com.intellij.unscramble.UnscrambleDialog" timestamp="1619240330222">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="640" y="196" key="#com.intellij.unscramble.UnscrambleDialog/0.0.1920.1080/-1080.-357.1080.1920@0.0.1920.1080" timestamp="1619240330222" />
     <state x="92" y="92" width="896" height="1736" key="AVDManager" timestamp="1619182318722">
       <screen x="0" y="0" width="1080" height="1920" />
     </state>
@@ -225,42 +214,46 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="804" y="329" key="AndroidCreateXmlResourceDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1619163238359" />
-    <state x="740" y="279" key="FileChooserDialogImpl" timestamp="1619205071623">
+    <state x="758" y="286" key="AndroidProcessChooserDialog" timestamp="1619241239201">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="740" y="279" key="FileChooserDialogImpl/0.0.1920.1080/-1080.-357.1080.1920@0.0.1920.1080" timestamp="1619205071623" />
-    <state width="1877" height="295" key="GridCell.Tab.0.bottom" timestamp="1619208664207">
+    <state x="758" y="286" key="AndroidProcessChooserDialog/0.0.1920.1080/-1080.-357.1080.1920@0.0.1920.1080" timestamp="1619241239201" />
+    <state x="740" y="279" key="FileChooserDialogImpl" timestamp="1619240843730">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1877" height="295" key="GridCell.Tab.0.bottom/0.0.1920.1080/-1080.-357.1080.1920@0.0.1920.1080" timestamp="1619208664207" />
-    <state width="1877" height="295" key="GridCell.Tab.0.center" timestamp="1619208664206">
+    <state x="740" y="279" key="FileChooserDialogImpl/0.0.1920.1080/-1080.-357.1080.1920@0.0.1920.1080" timestamp="1619240843730" />
+    <state width="1877" height="295" key="GridCell.Tab.0.bottom" timestamp="1619241441079">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1877" height="295" key="GridCell.Tab.0.center/0.0.1920.1080/-1080.-357.1080.1920@0.0.1920.1080" timestamp="1619208664206" />
-    <state width="1877" height="295" key="GridCell.Tab.0.left" timestamp="1619208664206">
+    <state width="1877" height="295" key="GridCell.Tab.0.bottom/0.0.1920.1080/-1080.-357.1080.1920@0.0.1920.1080" timestamp="1619241441079" />
+    <state width="1877" height="295" key="GridCell.Tab.0.center" timestamp="1619241441079">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1877" height="295" key="GridCell.Tab.0.left/0.0.1920.1080/-1080.-357.1080.1920@0.0.1920.1080" timestamp="1619208664206" />
-    <state width="1877" height="295" key="GridCell.Tab.0.right" timestamp="1619208664207">
+    <state width="1877" height="295" key="GridCell.Tab.0.center/0.0.1920.1080/-1080.-357.1080.1920@0.0.1920.1080" timestamp="1619241441079" />
+    <state width="1877" height="295" key="GridCell.Tab.0.left" timestamp="1619241441079">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1877" height="295" key="GridCell.Tab.0.right/0.0.1920.1080/-1080.-357.1080.1920@0.0.1920.1080" timestamp="1619208664207" />
-    <state width="1877" height="295" key="GridCell.Tab.1.bottom" timestamp="1619208604886">
+    <state width="1877" height="295" key="GridCell.Tab.0.left/0.0.1920.1080/-1080.-357.1080.1920@0.0.1920.1080" timestamp="1619241441079" />
+    <state width="1877" height="295" key="GridCell.Tab.0.right" timestamp="1619241441079">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1877" height="295" key="GridCell.Tab.1.bottom/0.0.1920.1080/-1080.-357.1080.1920@0.0.1920.1080" timestamp="1619208604886" />
-    <state width="1877" height="295" key="GridCell.Tab.1.center" timestamp="1619208604886">
+    <state width="1877" height="295" key="GridCell.Tab.0.right/0.0.1920.1080/-1080.-357.1080.1920@0.0.1920.1080" timestamp="1619241441079" />
+    <state width="1877" height="295" key="GridCell.Tab.1.bottom" timestamp="1619241441079">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1877" height="295" key="GridCell.Tab.1.center/0.0.1920.1080/-1080.-357.1080.1920@0.0.1920.1080" timestamp="1619208604886" />
-    <state width="1877" height="295" key="GridCell.Tab.1.left" timestamp="1619208604886">
+    <state width="1877" height="295" key="GridCell.Tab.1.bottom/0.0.1920.1080/-1080.-357.1080.1920@0.0.1920.1080" timestamp="1619241441079" />
+    <state width="1877" height="295" key="GridCell.Tab.1.center" timestamp="1619241441079">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1877" height="295" key="GridCell.Tab.1.left/0.0.1920.1080/-1080.-357.1080.1920@0.0.1920.1080" timestamp="1619208604886" />
-    <state width="1877" height="295" key="GridCell.Tab.1.right" timestamp="1619208604886">
+    <state width="1877" height="295" key="GridCell.Tab.1.center/0.0.1920.1080/-1080.-357.1080.1920@0.0.1920.1080" timestamp="1619241441079" />
+    <state width="1877" height="295" key="GridCell.Tab.1.left" timestamp="1619241441079">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1877" height="295" key="GridCell.Tab.1.right/0.0.1920.1080/-1080.-357.1080.1920@0.0.1920.1080" timestamp="1619208604886" />
+    <state width="1877" height="295" key="GridCell.Tab.1.left/0.0.1920.1080/-1080.-357.1080.1920@0.0.1920.1080" timestamp="1619241441079" />
+    <state width="1877" height="295" key="GridCell.Tab.1.right" timestamp="1619241441079">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1877" height="295" key="GridCell.Tab.1.right/0.0.1920.1080/-1080.-357.1080.1920@0.0.1920.1080" timestamp="1619241441079" />
     <state x="461" y="184" key="SettingsEditor" timestamp="1619200188085">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
@@ -283,7 +276,27 @@
           <line>22</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/example/quanlyluong/TestDB.java</url>
+          <line>46</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/example/quanlyluong/TestDB.java</url>
+          <line>39</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/example/quanlyluong/DAO/ChamCong_Repository.java</url>
+          <line>33</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="app">
+        <watch expression="tempStr" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>

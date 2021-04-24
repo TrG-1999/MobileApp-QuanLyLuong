@@ -27,4 +27,12 @@ public class PhongBan {
     public String getTenPB() {
         return tenPB;
     }
+
+    @Override
+    public String toString() {
+        return "PhongBan{" +
+                "maPB=" + maPB +
+                ", tenPB='" + tenPB + '\'' +
+                '}';
+    }
 }

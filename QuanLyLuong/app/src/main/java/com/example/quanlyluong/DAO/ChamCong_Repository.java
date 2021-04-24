@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.quanlyluong.Data.ChamCong;
-import com.example.quanlyluong.Data.NV;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -25,7 +24,7 @@ public class ChamCong_Repository extends DatabaseHelper implements DAO<ChamCong>
         cv.put(this.MANV_COLMN, chamCong.getMaNV());
         cv.put(this.NGAYGHISO_COLUMN, chamCong.getNgayGhiSo().toString());
         cv.put(this.SONGAYCONG_COLUMN, chamCong.getSoNgayCong());
-        long create = db.insert(this.PHONGBAN_TABLE, null, cv);
+        long create = db.insert(this.CHAMCONG_TABLE, null, cv);
         if(create > 0) return true;
         return false;
     }
@@ -40,7 +39,9 @@ public class ChamCong_Repository extends DatabaseHelper implements DAO<ChamCong>
             do{
                 ChamCong temp = new ChamCong();
                 temp.setMaNV(cursor.getInt(0));
-                Date tempDate = new SimpleDateFormat("dd/MM/yyyy").parse(cursor.getString(1));
+                String[] tempStr = cursor.getString(2).split(" ");
+                String dateStr = tempStr[1] + " " + tempStr[2] + " " + tempStr[tempStr.length-1];
+                Date tempDate = new SimpleDateFormat("MMMM dd yyyy").parse(dateStr);
                 temp.setNgayGhiSo(tempDate);
                 temp.setSoNgayCong(cursor.getInt(2));
                 resultList.add(temp);
@@ -60,7 +61,9 @@ public class ChamCong_Repository extends DatabaseHelper implements DAO<ChamCong>
         if(cursor.moveToFirst()){
             result = new ChamCong();
             result.setMaNV(cursor.getInt(0));
-            Date tempDate = new SimpleDateFormat("dd/MM/yyyy").parse(cursor.getString(1));
+            String[] tempStr = cursor.getString(2).split(" ");
+            String dateStr = tempStr[1] + " " + tempStr[2] + " " + tempStr[tempStr.length-1];
+            Date tempDate = new SimpleDateFormat("MMMM dd yyyy").parse(dateStr);
             result.setNgayGhiSo(tempDate);
             result.setSoNgayCong(cursor.getInt(2));
         }
@@ -79,14 +82,18 @@ public class ChamCong_Repository extends DatabaseHelper implements DAO<ChamCong>
     }
 
     @Override
+    @Deprecated
     public boolean deleteById(int id) throws Exception {
+        return false;
+    }
+    public boolean deleteByObject(ChamCong chamCong){
         SQLiteDatabase db = this.getWritableDatabase();
-        String queryST = "DELETE FROM " + CHAMCONG_TABLE + " WHERE " + MANV_COLMN +" = " + id;
+        String queryST = "DELETE FROM " + CHAMCONG_TABLE + " WHERE " + MANV_COLMN +" = '" + chamCong.getMaNV() + "' " + "AND "
+                + NGAYGHISO_COLUMN + " ='" + chamCong.getNgayGhiSo().toString() + "''";
         Cursor cursor = db.rawQuery(queryST, null);
         if(cursor.moveToFirst()) return true;
         return false;
     }
-
     @Override
     public boolean update(ChamCong chamCong) throws Exception {
         SQLiteDatabase db = this.getWritableDatabase();
