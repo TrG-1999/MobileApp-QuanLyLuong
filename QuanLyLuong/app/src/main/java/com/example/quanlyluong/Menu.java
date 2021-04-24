@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 public class Menu extends AppCompatActivity {
-    Button btn_phongban, btn_nhanvien, btn_chamcong, btn_tamung, btn_thoat, btn_theodoiphongban;
+    Button btn_phongban, btn_nhanvien, btn_chamcong, btn_tamung, btn_thoat, btn_theodoiphongban, btn_thongke;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +25,7 @@ public class Menu extends AppCompatActivity {
         btn_tamung = (Button) findViewById(R.id.btn_tamung);
         btn_thoat = (Button) findViewById(R.id.btn_thoat);
         btn_theodoiphongban = (Button) findViewById(R.id.btn_theodoiphongban);
+        btn_thongke = (Button) findViewById(R.id.btn_thongke);
     }
 
     public void setAction() {
@@ -68,6 +69,13 @@ public class Menu extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Menu.this, TheoDoiPhongBan.class);
+                startActivity(intent);
+            }
+        });
+        btn_thongke.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Menu.this, ThongKe.class);
                 startActivity(intent);
             }
         });
