@@ -21,7 +21,6 @@ public class TamUng_Reposiroty extends DatabaseHelper  implements DAO<TamUng> {
     public boolean create(TamUng tamUng) throws Exception {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put(this.SOPHIEU_COLUMN, tamUng.getSoPhieu());
         cv.put(this.NGAY_COLUMN, tamUng.getNgay().toString());
         cv.put(this.MANV_COLMN, tamUng.getMaNV());
         cv.put(this.SOTIEN_COLUMN, tamUng.getSoTien());
@@ -33,14 +32,16 @@ public class TamUng_Reposiroty extends DatabaseHelper  implements DAO<TamUng> {
     @Override
     public List<TamUng> getAll() throws Exception {
         List<TamUng> resultList = new ArrayList<>();
-        String queryST = "SELECT * FROM " + this.PHONGBAN_TABLE;
+        String queryST = "SELECT * FROM " + this.TAMUNG_TABLE;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(queryST, null);
         if(cursor.moveToFirst()){
             do{
                 TamUng temp = new TamUng();
                 temp.setSoPhieu(cursor.getInt(0));
-                Date tempDate = new SimpleDateFormat("dd/MM/yyyy").parse(cursor.getString(1));
+                String[] tempStr = cursor.getString(1).split(" ");
+                String dateStr = tempStr[1] + " " + tempStr[2] + " " + tempStr[tempStr.length-1]  + " " + tempStr[3];
+                Date tempDate = new SimpleDateFormat("MMMM dd yyyy HH:mm:ss").parse(dateStr);
                 temp.setNgay(tempDate);
                 temp.setMaNV(cursor.getInt(2));
                 temp.setSoTien(cursor.getInt(3));
@@ -55,13 +56,35 @@ public class TamUng_Reposiroty extends DatabaseHelper  implements DAO<TamUng> {
     @Override
     public TamUng getById(int id) throws Exception {
         TamUng result = null;
-        String queryST = "SELECT * FROM " + this.TAMUNG_TABLE + " WHERE ID = " + id ;
+        String queryST = "SELECT * FROM " + this.TAMUNG_TABLE + " WHERE " + SOPHIEU_COLUMN + " = " + id;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(queryST, null);
         if(cursor.moveToFirst()){
             result = new TamUng();
             result.setSoPhieu(cursor.getInt(0));
-            Date tempDate = new SimpleDateFormat("dd/MM/yyyy").parse(cursor.getString(1));
+            String[] tempStr = cursor.getString(1).split(" ");
+            String dateStr = tempStr[1] + " " + tempStr[2] + " " + tempStr[tempStr.length-1]  + " " + tempStr[3];
+            Date tempDate = new SimpleDateFormat("MMMM dd yyyy HH:mm:ss").parse(dateStr);
+            result.setNgay(tempDate);
+            result.setMaNV(cursor.getInt(2));
+            result.setSoTien(cursor.getInt(3));
+        }
+        db.close();
+        cursor.close();
+        return result;
+    }
+    public TamUng getByIdAndDate(int id, Date date) throws Exception{
+        TamUng result = null;
+        String queryST = "SELECT * FROM " + this.TAMUNG_TABLE + " WHERE " + SOPHIEU_COLUMN + " = " + id + " " +
+                "AND " + NGAY_COLUMN + " = '" + date.toString() + "' ";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(queryST, null);
+        if(cursor.moveToFirst()){
+            result = new TamUng();
+            result.setSoPhieu(cursor.getInt(0));
+            String[] tempStr = cursor.getString(1).split(" ");
+            String dateStr = tempStr[1] + " " + tempStr[2] + " " + tempStr[tempStr.length-1]  + " " + tempStr[3];
+            Date tempDate = new SimpleDateFormat("MMMM dd yyyy HH:mm:ss").parse(dateStr);
             result.setNgay(tempDate);
             result.setMaNV(cursor.getInt(2));
             result.setSoTien(cursor.getInt(3));
@@ -88,13 +111,21 @@ public class TamUng_Reposiroty extends DatabaseHelper  implements DAO<TamUng> {
         if(cursor.moveToFirst()) return true;
         return false;
     }
+    public boolean deleteByIdAndDate(int id, Date date) throws Exception{
+        SQLiteDatabase db = this.getWritableDatabase();
+        String queryST = "DELETE FROM " + TAMUNG_TABLE + " WHERE " + SOPHIEU_COLUMN + " = " + id + "' " +
+                "AND " + NGAY_COLUMN + " = '" + date.toString() + "'";
+        Cursor cursor = db.rawQuery(queryST, null);
+        if(cursor.moveToFirst()) return true;
+        return false;
+    }
 
     @Override
     public boolean update(TamUng tamUng) throws Exception {
         SQLiteDatabase db = this.getWritableDatabase();
         String queryST = "UPDATE "+  this.TAMUNG_TABLE + " SET " +
-                this.MANV_COLMN + " = " + tamUng.getMaNV() + " " +
-                this.NGAY_COLUMN + " = " + tamUng.getNgay() + " " +
+                this.MANV_COLMN + " = " + tamUng.getMaNV() + ", " +
+                this.NGAY_COLUMN + " = '" + tamUng.getNgay() + "', " +
                 this.SOTIEN_COLUMN + " = " + tamUng.getSoTien() + " " +
                 " WHERE " + SOPHIEU_COLUMN + " = " +  tamUng.getSoPhieu();
         Cursor cursor = db.rawQuery(queryST, null);
