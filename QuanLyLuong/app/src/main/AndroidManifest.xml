@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.QuanLyLuong">
-        <activity android:name=".TheoDoiPhongBan"></activity>
+        <activity android:name=".ThongKe"></activity>
+        <activity android:name=".TheoDoiPhongBan" />
         <activity android:name=".TamUng" />
         <activity android:name=".ChamCong" />
         <activity android:name=".QuanLyNhanVien" />
