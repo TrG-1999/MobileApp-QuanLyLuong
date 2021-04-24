@@ -70,16 +70,33 @@
             app:backgroundTint="#11B118" />
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btn_theodoiphongban"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="5dp"
-        android:padding="15dp"
-        android:text="Theo dõi phòng ban"
-        android:textSize="20sp"
-        app:backgroundTint="#3F51B5" />
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_theodoiphongban"
+            android:layout_width="165dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="20dp"
+            android:layout_weight="0"
+            android:text="Theo dõi phòng ban"
+            android:textSize="20sp"
+            app:backgroundTint="#3F51B5" />
+
+        <Button
+            android:id="@+id/btn_thongke"
+            android:layout_width="163dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="20dp"
+            android:layout_weight="0"
+            android:text="Thống Kê"
+            android:textSize="20sp"
+            app:backgroundTint="#3F51B5" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/btn_thoat"
