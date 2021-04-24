@@ -1,6 +1,7 @@
 package com.example.quanlyluong.DAO;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -22,69 +23,52 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     protected static final String CHAMCONG_TABLE = "CHAMCONG";
     protected static final String NGAYGHISO_COLUMN = "NGAYGHISO";
     protected static final String SONGAYCONG_COLUMN = "SONGAYCONG";
-
+    SQLiteDatabase temp;
     public DatabaseHelper(Context context) {
         super(context, "QUAN_LI_LUONG", null, 1);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createST = "CREATE TABLE " + PHONGBAN_TABLE + "(\n" +
-                "  " + MAPB_COLUMN + " INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
-                "  " + TENPB_COLUMN + " TEXT NOT NULL" +
-                ");\n" +
-                "CREATE TABLE " + NHANVIEN_TABLE + "(\n" +
-                "  \t" + MANV_COLMN + " INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
-                "  \t" + HOTEN_COLUMN + " TEXT NOT NULL,\n" +
-                "  \t" + NGAYSINH_COLUMN + " DATE NOT NULL,\n" +
-                "  \t" + MAPB_COLUMN + " INT NOT NULL,\n" +
-                "  \t" + MUCLUONG_COLUMN + " INT NOT NULL,\n" +
-                " \tCONSTRAINT fk_" + PHONGBAN_TABLE + "_NV\n" +
-                "    \tFOREIGN KEY (" + MAPB_COLUMN + ")\n" +
-                "    \tREFERENCES " + PHONGBAN_TABLE + "M(" + MAPB_COLUMN + ") ON DELETE CASCADE\n" +
-                " );\n" +
-                "CREATE TABLE " + TAMUNG_TABLE + "(\n" +
-                "   " + SOPHIEU_COLUMN + " INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
-                "   " + NGAY_COLUMN + " DATE NOT NULL,\n" +
-                "   " + MANV_COLMN + " INTEGER NOT NULL,\n" +
-                "   " + SOTIEN_COLUMN + " INTEGER NOT NULL,\n" +
-                "   CONSTRAINT fk_" + TAMUNG_TABLE + "_NV\n" +
-                "    \tFOREIGN KEY (" + MANV_COLMN + ")\n" +
-                "    \tREFERENCES " + NHANVIEN_TABLE + "(" + MANV_COLMN + ") ON DELETE CASCADE\n" +
-                " );\n" +
-                "CREATE TABLE " + CHAMCONG_TABLE + "(\n" +
-                "   " + MANV_COLMN + " INTEGER NOT NULL,\n" +
-                "   " + NGAYGHISO_COLUMN + " DATE NOT NULL,\n" +
-                "   SO" + SONGAYCONG_COLUMN + " INTEGER NOT NULL,\n" +
-                "   PRIMARY KEY(" + MANV_COLMN + ", " + NGAY_COLUMN + "GHISO)\n" +
-                "   CONSTRAINT fk_CHAMCONG_NV\n" +
-                "    \tFOREIGN KEY (" + MANV_COLMN + ")\n" +
-                "    \tREFERENCES " + NHANVIEN_TABLE + "(" + MANV_COLMN + ") ON DELETE CASCADE" +
-                ");";
-//                "CREATE TABLE NHANVIEN(" +
-//                "MANV INTEGER PRIMARY KEY," +
-//                "HOTEN TEXT NOT NULL," +
-//                "NGAYSINH DATETIME NOT NULL," +
-//                "MAPB INT NOT NULL," +
-//                "MUCLUONG INT NOT NULL);" +
-//                "  CREATE TABLE CHAMCONG(" +
-//                "MANV INT NOT NULL," +
-//                "NGAYGHISO DATTIME NOT NULL," +
-//                "SONGAYCONG INT NOT NULL);" +
-//                "CREATE TABLE PHONGBAN(" +
-//                "MAPB INT PRIMARY KEY," +
-//                "TENPB TEXT NOT NULL);" +
-//                "CREATE TABLE TAMUNG(" +
-//                "SOPHIEU INT PRIMARY KEY," +
-//                "NGAY INT NOT NULL," +
-//                "MANV INT NOT NULL," +
-//                "SOTIEN INT NOT NULL);" +
-//                "";
+        String createST = "CREATE TABLE NHANVIEN(\n" +
+                "  \tMANV INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
+                "  \tHOTEN TEXT NOT NULL,\n" +
+                "  \tNGAYSINH DATETIME NOT NULL,\n" +
+                "  \tMAPB INT NOT NULL,\n" +
+                "  \tMUCLUONG INT NOT NULL,\n" +
+                " \tCONSTRAINT fk_PHONGBAN_NV\n" +
+                "    \tFOREIGN KEY (MAPB)\n" +
+                "    \tREFERENCES PHONGBANM(MAPB)\n" +
+                "\tON DELETE CASCADE\n" +
+                " )";
         db.execSQL(createST);
+        String createST1 = "CREATE TABLE TAMUNG(\n" +
+                "   SOPHIEU INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
+                "   NGAY DATETIME NOT NULL,\n" +
+                "   MANV INTEGER NOT NULL,\n" +
+                "   SOTIEN INTEGER NOT NULL,\n" +
+                "   CONSTRAINT fk_TAMUNG_NV\n" +
+                "    \tFOREIGN KEY (MANV)\n" +
+                "    \tREFERENCES NHANVIEN(MANV)\n" +
+                " );";
+        db.execSQL(createST1);
+        String createST2 = "CREATE TABLE PHONGBAN(\n" +
+                "  MAPB INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
+                "  TENPB TEXT NOT NULL\n" +
+                ");";
+        db.execSQL(createST2);
+        String createST3 = "CREATE TABLE CHAMCONG(\n" +
+                "   MANV INTEGER NOT NULL,\n" +
+                "   NGAYGHISO DATETIME NOT NULL,\n" +
+                "   SONGAYCONG INTEGER NOT NULL,\n" +
+                "   PRIMARY KEY(MANV, NGAYGHISO)\n" +
+                ");";
+        db.execSQL(createST3);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
     }
+
 }

@@ -150,7 +150,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/button4"
+            android:id="@+id/btnXoaPB"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -160,7 +160,7 @@
             app:backgroundTint="#E91E63" />
 
         <Button
-            android:id="@+id/button5"
+            android:id="@+id/btnSuaPB"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -171,7 +171,7 @@
             app:backgroundTint="#FFEB3B" />
 
         <Button
-            android:id="@+id/button6"
+            android:id="@+id/btnThemPB"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

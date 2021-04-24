@@ -33,7 +33,7 @@ public class ChamCong_Repository extends DatabaseHelper implements DAO<ChamCong>
     @Override
     public List<ChamCong> getAll() throws Exception {
         List<ChamCong> resultList = new ArrayList<>();
-        String queryST = "SELECT * FROM " + this.CHAMCONG_TABLE;
+        String queryST = "SELECT * FROM CHAMCONG";
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(queryST, null);
         if(cursor.moveToFirst()){
@@ -54,7 +54,7 @@ public class ChamCong_Repository extends DatabaseHelper implements DAO<ChamCong>
     @Override
     public ChamCong getById(int id) throws Exception {
         ChamCong result = null;
-        String queryST = "SELECT * FROM " + this.CHAMCONG_TABLE + " WHERE ID = " + id ;
+        String queryST = "SELECT * FROM CHAMCONG WHERE ID = " + id ;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(queryST, null);
         if(cursor.moveToFirst()){

@@ -17,7 +17,6 @@ public class NV_Repository extends DatabaseHelper implements DAO<NV> {
         super(context);
     }
 
-
     @Override
     public boolean create(NV nv) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -27,6 +26,7 @@ public class NV_Repository extends DatabaseHelper implements DAO<NV> {
         cv.put(MAPB_COLUMN, nv.getMaPB());
         cv.put(MUCLUONG_COLUMN, nv.getMucLuong());
         long create = db.insert(this.NHANVIEN_TABLE, null, cv);
+        db.close();
         if(create > 0) return true;
         return false;
     }

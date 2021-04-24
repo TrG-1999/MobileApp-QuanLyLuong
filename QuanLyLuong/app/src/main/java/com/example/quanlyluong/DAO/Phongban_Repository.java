@@ -22,9 +22,10 @@ public class Phongban_Repository extends DatabaseHelper implements DAO<PhongBan>
     public boolean create(PhongBan phongBan) throws Exception {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put(this.MANV_COLMN, phongBan.getMaPB());
+//        cv.put(this.MAPB_COLUMN, phongBan.getMaPB());
         cv.put(this.TENPB_COLUMN, phongBan.getTenPB());
         long create = db.insert(this.PHONGBAN_TABLE, null, cv);
+        db.close();
         if(create > 0) return true;
         return false;
     }
@@ -51,7 +52,7 @@ public class Phongban_Repository extends DatabaseHelper implements DAO<PhongBan>
     @Override
     public PhongBan getById(int MAPB) throws Exception {
         PhongBan result = null;
-        String queryST = "SELECT * FROM " + this.PHONGBAN_TABLE + " WHERE ID = " + MAPB ;
+        String queryST = "SELECT * FROM " + this.PHONGBAN_TABLE + " WHERE " + MAPB_COLUMN + " = " + MAPB ;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(queryST, null);
         if(cursor.moveToFirst()){
@@ -86,7 +87,7 @@ public class Phongban_Repository extends DatabaseHelper implements DAO<PhongBan>
     public boolean update(PhongBan phongBan) throws Exception {
         SQLiteDatabase db = this.getWritableDatabase();
         String queryST = "UPDATE "+  this.PHONGBAN_TABLE + " SET " +
-                this.TENPB_COLUMN + " = " + phongBan.getTenPB() + " " +
+                this.TENPB_COLUMN + " = '" + phongBan.getTenPB() + "' " +
                 " WHERE " + MAPB_COLUMN + " = " +  phongBan.getMaPB();
         Cursor cursor = db.rawQuery(queryST, null);
         if(cursor.moveToFirst()) return true;
