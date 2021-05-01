@@ -1,33 +1,60 @@
 package com.example.quanlyluong;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TableLayout;
+import android.view.Menu;
+import android.view.MenuItem;
 
 public class QuanLyPhongBan extends AppCompatActivity {
-    Button btnXoa, btnSua, btnThem;
-    EditText etMaPB, etTenPB;
-    TableLayout tablePB;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quan_ly_phong_ban);
-//        setObject();
 
     }
-//    private void setObject(){
-//        btnXoa = findViewById(R.id.btnXoaPB);
-//        btnSua = findViewById(R.id.btnSuaPB);
-//        btnThem = findViewById(R.id.btnThemPB);
-//        etMaPB = findViewById(R.id.etMaPB);
-//        etTenPB = findViewById(R.id.etTenPB);
-//        tablePB = findViewById(R.id.tablePB);
-//    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.action_bar, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menuChamcong:
+                Intent intent_cc = new Intent(QuanLyPhongBan.this, ChamCong.class);
+                startActivity(intent_cc);
+                finish();
+                break;
+            case R.id.menuNhanvien:
+                Intent intent_nv = new Intent(QuanLyPhongBan.this, QuanLyNhanVien.class);
+                startActivity(intent_nv);
+                finish();
+                break;
+            case R.id.menuPhongban:
+                Intent intent_pb = new Intent(QuanLyPhongBan.this, QuanLyPhongBan.class);
+                startActivity(intent_pb);
+                finish();
+                break;
+            case R.id.menuTamung:
+                Intent intent_tu = new Intent(QuanLyPhongBan.this, TamUng.class);
+                startActivity(intent_tu);
+                finish();
+                break;
+            case R.id.menuOptions:
+                onBackPressed();
+                break;
+            case R.id.menuLogout:
+                Intent intent_lo = new Intent(QuanLyPhongBan.this, login.class);
+                startActivity(intent_lo);
+                finish();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }
