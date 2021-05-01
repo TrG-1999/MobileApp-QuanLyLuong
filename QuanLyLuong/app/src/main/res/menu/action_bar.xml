@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menuPhongban"
+        android:title="PHÒNG BAN" />
+    <item
+        android:id="@+id/menuNhanvien"
+        android:title="NHÂN VIÊN" />
+    <item
+        android:id="@+id/menuChamcong"
+        android:title="CHẤM CÔNG" />
+    <item
+        android:id="@+id/menuTamung"
+        android:title="TẠM ỨNG" />
+    <item
+        android:id="@+id/menuOptions"
+        android:icon="@android:drawable/ic_menu_directions"
+        android:title="LỰA CHỌN KHÁC"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/menuLogout"
+        android:title="LOGOUT" />
+</menu>
