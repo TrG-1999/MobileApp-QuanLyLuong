@@ -31,14 +31,14 @@ public class TestDB extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_d_b);
         Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+//        setSupportActionBar(toolbar);
         txtTest = findViewById(R.id.txtTest);
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try {
-//                    Phongban_Repository pvRepo = new Phongban_Repository(TestDB.this);
+                    Phongban_Repository pvRepo = new Phongban_Repository(TestDB.this);
 //                    PhongBan tempPB = new PhongBan(1, "ABC");
 //                    pvRepo.create(tempPB);
 
@@ -61,8 +61,8 @@ public class TestDB extends AppCompatActivity {
 
                     String tempStr = "";
 
-//                    List<com.example.quanlyluong.Data.PhongBan> listPB = pvRepo.getAll();
-//                    for(com.example.quanlyluong.Data.PhongBan i : listPB) tempStr += i.toString() + "\n";
+                    List<com.example.quanlyluong.Data.PhongBan> listPB = pvRepo.getAll();
+                    for(com.example.quanlyluong.Data.PhongBan i : listPB) tempStr += i.toString() + "\n";
 //
 //                    List<com.example.quanlyluong.Data.NV> listNV = nvRepo.getAll();
 //                    for(com.example.quanlyluong.Data.NV i : listNV) tempStr += i.toString() + "\n";
@@ -77,22 +77,22 @@ public class TestDB extends AppCompatActivity {
 //                    listCC = tempCC.getAll();
 //                    for(com.example.quanlyluong.Data.ChamCong i : listCC) tempStr += i.toString() + "\n";
 
-                    TamUng_Reposiroty tuRepo = new TamUng_Reposiroty(TestDB.this);
+//                    TamUng_Reposiroty tuRepo = new TamUng_Reposiroty(TestDB.this);
 //                    TamUng tu = new TamUng();
 //                    tu.setSoPhieu(-1);
 //                    tu.setMaNV(1);
 //                    tu.setSoTien(190);
 //                    tu.setNgay(new Date(System.currentTimeMillis()));
 //                    tuRepo.create(tu);
-                    List<TamUng> listTU = tuRepo.getAll();
-                    for(TamUng i : listTU) tempStr += i.toString() + "\n";
-                    tempStr += "\n\n";
-                    tuRepo.deleteById(-1);
-                    TamUng tu = tuRepo.getById(1);
-                    tu.setSoTien(111111);
-                    tuRepo.update(tu);
-                    listTU = tuRepo.getAll();
-                    for(TamUng i : listTU) tempStr += i.toString() + "\n";
+//                    List<TamUng> listTU = tuRepo.getAll();
+//                    for(TamUng i : listTU) tempStr += i.toString() + "\n";
+//                    tempStr += "\n\n";
+//                    tuRepo.deleteById(-1);
+//                    TamUng tu = tuRepo.getById(1);
+//                    tu.setSoTien(111111);
+//                    tuRepo.update(tu);
+//                    listTU = tuRepo.getAll();
+//                    for(TamUng i : listTU) tempStr += i.toString() + "\n";
                     txtTest.setText(tempStr);
 
                 }

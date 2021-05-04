@@ -1,20 +1,48 @@
 package com.example.quanlyluong;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.quanlyluong.DAO.NV_Repository;
+import com.example.quanlyluong.DAO.Phongban_Repository;
+import com.example.quanlyluong.DAO.TamUng_Reposiroty;
+import com.example.quanlyluong.Data.NV;
+import com.example.quanlyluong.Data.PhongBan;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class TamUng extends AppCompatActivity {
-
+    EditText etSoPhieu, etNgayUng, etSoTien;
+    Spinner spinnerMaNV;
+    Button btnXoa, btnSua, btnThem;
+    TableLayout dataTable;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tam_ung);
-
+        getID();
+        getSpinnerData();
+        getData();
     }
 
     @Override
@@ -57,5 +85,184 @@ public class TamUng extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+    private void getID(){
+        etSoPhieu = TamUng.this.findViewById(R.id.etSoPhieu);
+        etNgayUng = TamUng.this.findViewById(R.id.etNgayUng);
+        etSoTien = TamUng.this.findViewById(R.id.etSoTien);
+        spinnerMaNV = TamUng.this.findViewById(R.id.spinnerMaNV);
+        dataTable = TamUng.this.findViewById(R.id.tableTU);
 
+        btnThem = TamUng.this.findViewById(R.id.btnThemTU);
+        btnThem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int maNV = Integer.parseInt(spinnerMaNV.getSelectedItem().toString());
+                AlertDialog.Builder builder = new AlertDialog.Builder(TamUng.this);
+                builder.setTitle("XAC NHAN");
+                builder.setMessage("XAC NHAN TAM UNG MOI CUA NHAN VIEN " + maNV + "?");
+                builder.setIcon(android.R.drawable.ic_dialog_alert);
+                builder.setPositiveButton("CO", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        try {
+                            String ngayUng = etNgayUng.getText().toString();
+                            int maNV = Integer.parseInt(spinnerMaNV.getSelectedItem().toString());
+                            int soTien = Integer.parseInt(etSoTien.getText().toString());
+                            Date tempDate = new Date(System.currentTimeMillis());
+                            if(!etNgayUng.getText().toString().isEmpty()){
+                                tempDate = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(etNgayUng.getText().toString());
+                            }
+                            TamUng_Reposiroty repo = new TamUng_Reposiroty(TamUng.this);
+                            com.example.quanlyluong.Data.TamUng temp = new com.example.quanlyluong.Data.TamUng(-1, tempDate , maNV, soTien);
+                            //-------------------------------------------------------
+
+                            //validate input data
+
+                            //-------------------------------------------------------
+                            repo.create(temp);
+                            getData();
+                        }
+                        catch (Exception e){
+                            Toast.makeText(TamUng.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            e.printStackTrace();
+                        }
+                    }
+                });
+                builder.setNegativeButton("KHONG", null);
+                builder.show();
+            }
+        });
+
+        btnSua = TamUng.this.findViewById(R.id.btnSuaTU);
+        btnSua.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(etSoPhieu.getText().toString().equalsIgnoreCase("")){
+                    Toast.makeText(TamUng.this,"KHONG TAM UNG NAO DUOC CHON", Toast.LENGTH_SHORT).show();
+                }
+                AlertDialog.Builder builder = new AlertDialog.Builder(TamUng.this);
+                builder.setTitle("XAC NHAN");
+                builder.setMessage("BAN CO MUON CHINH SUA THONG TIN TAM UNG CO MA TAM UNG LA "  + etSoPhieu.getText().toString());
+                builder.setIcon(android.R.drawable.ic_dialog_alert);
+                builder.setPositiveButton("CO", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        try {
+                            String id = etSoPhieu.getText().toString();
+                            TamUng_Reposiroty repo = new TamUng_Reposiroty(TamUng.this);
+                            com.example.quanlyluong.Data.TamUng temp = repo.getById(Integer.parseInt(id));
+                            temp.setSoTien(Integer.parseInt(etSoTien.getText().toString()));
+                            String ngayUng = etNgayUng.getText().toString();
+                            temp.setMaNV(Integer.parseInt(spinnerMaNV.getSelectedItem().toString()));
+
+                            temp.setSoTien(Integer.parseInt(etSoTien.getText().toString()));
+                            Date tempDate = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(ngayUng);
+                            temp.setNgay(tempDate);
+
+                            //-------------------------------------------------------
+
+                            //validate input data
+
+                            //-------------------------------------------------------
+                            repo.update(temp);
+                            getData();
+                        }
+                        catch (Exception e){
+                            Toast.makeText(TamUng.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            e.printStackTrace();
+                        }
+                    }
+                });
+                builder.setNegativeButton("KHONG", null);
+                builder.show();
+            }
+        });
+
+        btnXoa = TamUng.this.findViewById(R.id.btnXoaTU);
+        btnXoa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(etSoPhieu.getText().toString().equalsIgnoreCase("")) {
+                    Toast.makeText(TamUng.this,"KHONG NHAN VIEN NAO DUOC CHON", Toast.LENGTH_SHORT).show();
+                }
+                AlertDialog.Builder builder = new AlertDialog.Builder(TamUng.this);
+                builder.setTitle("XAC NHAN");
+                builder.setMessage("BAN CO MUON XOA TAM UNG CO MA TAM UNG LA "  + etSoPhieu.getText().toString());
+                builder.setIcon(android.R.drawable.ic_dialog_alert);
+                builder.setPositiveButton("CO", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        try {
+                            TamUng_Reposiroty repo = new TamUng_Reposiroty(TamUng.this);
+                            int id = Integer.parseInt(etSoPhieu.getText().toString());
+                            repo.deleteById(id);
+                            getData();
+                        }
+                        catch (Exception e){
+                            Toast.makeText(TamUng.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            e.printStackTrace();
+                        }
+                    }
+                });
+                builder.setNegativeButton("KHONG", null);
+                builder.show();
+            }
+        });
+    }
+    private void getData(){
+        try {
+            dataTable.removeAllViews();
+            TamUng_Reposiroty repo = new TamUng_Reposiroty(this);
+            List<com.example.quanlyluong.Data.TamUng> data = repo.getAll();
+            for( com.example.quanlyluong.Data.TamUng i : data){
+                TableRow row = (TableRow) LayoutInflater.from(TamUng.this).inflate(R.layout.table_row_tu, null);
+                ((TextView)row.findViewById(R.id.soPhieu)).setText(String.valueOf(i.getSoPhieu()));
+                ((TextView)row.findViewById(R.id.soTien)).setText(String.valueOf(i.getSoTien()));
+                ((TextView)row.findViewById(R.id.maNV)).setText(String.valueOf(i.getMaNV()));
+                String tempDate = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(i.getNgay());
+                ((TextView)row.findViewById(R.id.ngayUng)).setText(tempDate);
+                row.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String soPhieu = (String) ((TextView)row.findViewById(R.id.soPhieu)).getText();
+                        String soTien = (String) ((TextView)row.findViewById(R.id.soTien)).getText();
+                        String ngayUng = (String) ((TextView)row.findViewById(R.id.ngayUng)).getText();
+                        String maNV = (String) ((TextView)row.findViewById(R.id.maNV)).getText();
+                        for(int i = 0; i < spinnerMaNV.getCount(); i++){
+                            if(spinnerMaNV.getItemAtPosition(i).toString().equalsIgnoreCase(maNV)){
+                                spinnerMaNV.setSelection(i);
+                                break;
+                            }
+                        }
+                        etSoPhieu.setText(soPhieu);
+                        etNgayUng.setText(ngayUng);
+                        etSoTien.setText(soTien);
+                    }
+                });
+                dataTable.addView(row);
+            }
+            dataTable.requestLayout();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
+    private void getSpinnerData(){
+        try {
+            NV_Repository repo = new NV_Repository(TamUng.this);
+            List<NV> data = repo.getAll();
+            List<String> dataList = new ArrayList<>();
+            for(NV i : data){
+                dataList.add(String.valueOf(i.getMaNV()));
+            }
+            ArrayAdapter<String> tempData = new ArrayAdapter<String>(TamUng.this, android.R.layout.simple_spinner_dropdown_item, dataList);
+            tempData.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinnerMaNV.setAdapter(tempData);
+        }
+        catch (Exception e){
+            Toast.makeText(TamUng.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        }
+    }
 }

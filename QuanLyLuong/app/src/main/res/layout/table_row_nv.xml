@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableRow xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <TextView
+        android:id="@+id/maNV"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_column="0"
+        android:layout_weight="0.2"
+        android:padding="3dp"
+        android:textSize="16sp"
+        android:background="@drawable/table_row_border_pb" />
+
+    <TextView
+        android:id="@+id/tenNV"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_column="1"
+        android:layout_weight="0.5"
+        android:padding="3dp"
+        android:textSize="16sp"
+        android:background="@drawable/table_row_border_pb" />
+
+    <TextView
+        android:id="@+id/NSNV"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_column="2"
+        android:layout_weight="0"
+        android:padding="3dp"
+        android:textSize="16sp"
+        android:background="@drawable/table_row_border_pb" />
+
+    <TextView
+        android:id="@+id/maPB"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_column="3"
+        android:layout_weight="0.2"
+        android:padding="3dp"
+        android:textSize="16sp"
+        android:background="@drawable/table_row_border_pb" />
+
+    <TextView
+        android:id="@+id/luongNV"
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:layout_column="4"
+        android:layout_weight="0.5"
+        android:padding="3dp"
+        android:textSize="16sp"
+        android:background="@drawable/table_row_border_pb" />
+</TableRow>

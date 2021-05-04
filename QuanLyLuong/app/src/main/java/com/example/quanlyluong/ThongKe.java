@@ -5,15 +5,45 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AbsListView;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ListAdapter;
+import android.widget.Spinner;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.quanlyluong.DAO.NV_Repository;
+import com.example.quanlyluong.DAO.Phongban_Repository;
+import com.example.quanlyluong.Data.NV;
+import com.example.quanlyluong.Data.NV_ThongKe;
+import com.example.quanlyluong.Data.PhongBan;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 public class ThongKe extends AppCompatActivity {
-
+    EditText etLuong;
+    Spinner spinnerNam, spinnerMaPB, spinnerThang;
+    TableLayout dataTable;
+    TextView txtSoNV;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thong_ke);
+        getID();
+        getSpinnerData();
     }
 
     @Override
@@ -55,5 +85,128 @@ public class ThongKe extends AppCompatActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+    private void getID(){
+        dataTable = ThongKe.this.findViewById(R.id.tableThongKe);
+        txtSoNV = ThongKe.this.findViewById(R.id.txtViewTongNV);
+
+        etLuong = ThongKe.this.findViewById(R.id.etLuong);
+        etLuong.addTextChangedListener(new TextWatcher() {
+
+            public void onTextChanged(CharSequence s, int start, int before,
+                                      int count) {
+                if(!s.equals("") ) {
+                    getData();
+                }
+            }
+
+
+
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+
+            }
+
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        spinnerMaPB = ThongKe.this.findViewById(R.id.spinnerMaPB);
+        spinnerMaPB.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                getData();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        spinnerNam = ThongKe.this.findViewById(R.id.spinnerNam);
+        spinnerNam.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                getData();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        spinnerThang = ThongKe.this.findViewById(R.id.spinnerThang);
+        spinnerThang.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                getData();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+    private void getData(){
+        try {
+            String luong = etLuong.getText().toString();
+            String maPB = spinnerMaPB.getSelectedItem().toString();
+            String nam = spinnerNam.getSelectedItem().toString();
+            String thang = spinnerThang.getSelectedItem().toString();
+            if(luong.isEmpty() || maPB.isEmpty() || nam.isEmpty() || thang.isEmpty()) return;
+            dataTable.removeAllViews();
+            NV_Repository repo = new NV_Repository(this);
+            List<NV_ThongKe> data = repo.thongKe(maPB, thang, nam, luong);
+            for( NV_ThongKe i : data){
+                TableRow row = (TableRow) LayoutInflater.from(ThongKe.this).inflate(R.layout.table_row_thongke, null);
+                ((TextView)row.findViewById(R.id.maNV)).setText(String.valueOf(i.getMaNV()));
+                ((TextView)row.findViewById(R.id.tenNV)).setText(i.getTenNV());
+                ((TextView)row.findViewById(R.id.maPB)).setText(String.valueOf(i.getMaPB()));
+                ((TextView)row.findViewById(R.id.luong)).setText(String.valueOf(i.getTongLuong()));
+                dataTable.addView(row);
+            }
+            txtSoNV.setText("Tổng NV: " + data.size());
+            dataTable.requestLayout();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
+    private void getSpinnerData(){
+        try {
+            Phongban_Repository repo = new Phongban_Repository(ThongKe.this);
+            List<PhongBan> data = repo.getAll();
+            List<String> dataList = new ArrayList<>();
+            for(PhongBan i : data){
+                dataList.add(String.valueOf(i.getMaPB()));
+            }
+            ArrayAdapter<String> tempData = new ArrayAdapter<String>(ThongKe.this, android.R.layout.simple_spinner_dropdown_item, dataList);
+            tempData.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinnerMaPB.setAdapter(tempData);
+
+            List<String> dataThang = new ArrayList<>();
+            for(int i = 1; i <= 12; i++ ){
+                dataThang.add(String.valueOf(i));
+            }
+            ArrayAdapter<String> tempDataThang = new ArrayAdapter<String>(ThongKe.this, android.R.layout.simple_spinner_dropdown_item, dataThang);
+            tempDataThang.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinnerThang.setAdapter(tempDataThang);
+
+            List<String> dataNam = new ArrayList<>();
+            for(int i = 2015; i <= Calendar.getInstance().get(Calendar.YEAR); i++){
+                dataNam.add(String.valueOf(i));
+            }
+            ArrayAdapter<String> tempDataNam = new ArrayAdapter<String>(ThongKe.this, android.R.layout.simple_spinner_dropdown_item, dataNam);
+            tempDataNam.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinnerNam.setAdapter(tempDataNam);
+        }
+        catch (Exception e){
+            Toast.makeText(ThongKe.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        }
     }
 }

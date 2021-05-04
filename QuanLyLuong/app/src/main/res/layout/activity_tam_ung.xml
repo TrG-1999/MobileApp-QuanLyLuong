@@ -20,7 +20,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="35dp"
+        android:layout_height="50dp"
         android:layout_marginTop="8dp"
         android:orientation="horizontal">
 
@@ -35,7 +35,8 @@
             android:textSize="18sp" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName4"
+            android:focusable="false"
+            android:id="@+id/etSoPhieu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.6"
@@ -45,7 +46,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="35dp"
+        android:layout_height="50dp"
         android:layout_marginTop="8dp"
         android:orientation="horizontal">
 
@@ -60,7 +61,7 @@
             android:textSize="18sp" />
 
         <EditText
-            android:id="@+id/editTextDate"
+            android:id="@+id/etNgayUng"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.6"
@@ -71,7 +72,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="35dp"
+        android:layout_height="50dp"
         android:layout_marginTop="8dp"
         android:orientation="horizontal">
 
@@ -86,7 +87,7 @@
             android:textSize="18sp" />
 
         <Spinner
-            android:id="@+id/spinner2"
+            android:id="@+id/spinnerMaNV"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.1" />
@@ -96,7 +97,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="35dp"
+        android:layout_height="50dp"
         android:layout_marginTop="8dp"
         android:orientation="horizontal">
 
@@ -111,7 +112,7 @@
             android:textSize="18sp" />
 
         <EditText
-            android:id="@+id/editTextNumber"
+            android:id="@+id/etSoTien"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.1"
@@ -126,7 +127,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btnXoaPB"
+            android:id="@+id/btnXoaTU"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -136,7 +137,7 @@
             app:backgroundTint="#E91E63" />
 
         <Button
-            android:id="@+id/btnSuaPB"
+            android:id="@+id/btnSuaTU"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -147,7 +148,7 @@
             app:backgroundTint="#FFEB3B" />
 
         <Button
-            android:id="@+id/btnThemPB"
+            android:id="@+id/btnThemTU"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -159,146 +160,66 @@
 
     <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:stretchColumns="*">
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:weightSum="1">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_column="1"
-                android:layout_weight="0.5"
+                android:layout_column="0"
                 android:padding="3dp"
                 android:text="Số phiếu"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:background="@drawable/table_row_border_pb"/>
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_column="2"
-                android:layout_weight="0.5"
+                android:layout_column="1"
                 android:padding="3dp"
                 android:text="Ngày ứng"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:background="@drawable/table_row_border_pb"/>
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_column="3"
-                android:layout_weight="0.5"
+                android:layout_column="2"
                 android:padding="3dp"
                 android:text="Mã NV"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:background="@drawable/table_row_border_pb"/>
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_column="4"
-                android:layout_weight="0"
+                android:layout_column="3"
                 android:padding="3dp"
                 android:text="Số tiền"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:background="@drawable/table_row_border_pb"/>
         </TableRow>
-
-        <View
-            android:layout_height="2dip"
-            android:background="#101010" />
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="1"
-                android:layout_weight="0.5"
-                android:padding="3dp"
-                android:text="PH01"
-                android:textSize="16sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="2"
-                android:layout_weight="0.5"
-                android:padding="3dp"
-                android:text="05/01/2018"
-                android:textSize="16sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="3"
-                android:layout_weight="0.5"
-                android:padding="3dp"
-                android:text="NV1"
-                android:textSize="16sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="4"
-                android:layout_weight="0"
-                android:padding="3dp"
-                android:text="2.000.000"
-                android:textSize="16sp" />
-        </TableRow>
-
-        <View
-            android:layout_height="2dip"
-            android:background="#C1BDBD" />
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="1"
-                android:layout_weight="0.5"
-                android:padding="3dp"
-                android:text="PH02"
-                android:textSize="16sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="2"
-                android:layout_weight="0.5"
-                android:padding="3dp"
-                android:text="08/01/2018"
-                android:textSize="16sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="3"
-                android:layout_weight="0.5"
-                android:padding="3dp"
-                android:text="NV2"
-                android:textSize="16sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="4"
-                android:layout_weight="0"
-                android:padding="3dp"
-                android:text="1.500.000"
-                android:textSize="16sp" />
-        </TableRow>
-
-        <View
-            android:layout_height="2dip"
-            android:background="#101010" />
     </TableLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="horizontal"
+        android:layout_weight="1">
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tableTU"
+            android:stretchColumns="*">
 
+        </TableLayout>
+    </ScrollView>
 </LinearLayout>

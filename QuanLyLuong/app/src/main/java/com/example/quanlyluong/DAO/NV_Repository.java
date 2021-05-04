@@ -6,14 +6,20 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.quanlyluong.Data.NV;
+import com.example.quanlyluong.Data.NV_ThongKe;
+import com.example.quanlyluong.ThongKe;
 
 import java.text.SimpleDateFormat;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
 public class NV_Repository extends DatabaseHelper implements DAO<NV> {
+    public static String months[] = {"January", "February", "March", "April",
+            "May", "June", "July", "August", "September",
+            "October", "November", "December"};
     public NV_Repository(Context context) {
         super(context);
     }
@@ -109,5 +115,26 @@ public class NV_Repository extends DatabaseHelper implements DAO<NV> {
         Cursor cursor = db.rawQuery(queryST, null);
         if(cursor.moveToFirst()) return true;
         return false;
+    }
+    public List<NV_ThongKe> thongKe(String maPB, String thang, String nam, String luong) throws Exception{
+        SQLiteDatabase db = this.getReadableDatabase();
+        String currentMonth = months[Integer.parseInt(thang)-1];
+        String queryST ="SELECT NHANVIEN.MANV, NHANVIEN.HOTEN, NHANVIEN.MAPB,\n" +
+                " (CHAMCONG.SONGAYCONG * NHANVIEN.MUCLUONG) AS  TONG_LUONG\n" +
+                " FROM NHANVIEN\n" +
+                " INNER JOIN CHAMCONG ON NHANVIEN.MANV = CHAMCONG.MANV WHERE TONG_LUONG > "+ luong +"\n" +
+                " AND NGAYGHISO like '%" + currentMonth + "%' \n" +
+                " AND NGAYGHISO like '%" + nam + "%'\n" +
+                " AND NHANVIEN.MAPB = " + maPB;
+        Cursor cursor = db.rawQuery(queryST,null);
+        List<NV_ThongKe> result = new ArrayList<>();
+        if(cursor.moveToFirst()){
+            do{
+                NV_ThongKe temp = new NV_ThongKe(cursor.getInt(0), cursor.getString(1), cursor.getInt(2), cursor.getInt(3));
+                result.add(temp);
+            }while(cursor.moveToNext());
+        }
+        db.close();
+        return result;
     }
 }
