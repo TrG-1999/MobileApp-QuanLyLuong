@@ -24,16 +24,16 @@
         android:orientation="horizontal">
 
         <Button
-            android:background="@drawable/custom_botton"
-            android:drawableLeft="@drawable/ic_phongban"
             android:id="@+id/btn_phongban"
-            android:layout_width="wrap_content"
+            android:layout_width="198dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_weight="0.25"
+            android:background="@drawable/custom_botton"
+            android:drawableLeft="@drawable/ic_phongban"
             android:text="Phòng ban"
             android:textSize="18sp"
-            app:backgroundTint="#11B118"/>
+            app:backgroundTint="#11B118" />
 
         <Button
             android:background="@drawable/custom_botton"
