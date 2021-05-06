@@ -31,6 +31,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import io.vavr.Function2;
+import io.vavr.control.Either;
+
+import static io.vavr.API.run;
+
 public class TamUng extends AppCompatActivity {
     EditText etSoPhieu, etNgayUng, etSoTien;
     Spinner spinnerMaNV;
@@ -85,6 +90,47 @@ public class TamUng extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    private static Either<String, Date> validNgayUng(Date date) {
+        if (date == null) {
+            return Either.left("Ngay ung tien khong hop le");
+        } else {
+            return Either.right(date);
+        }
+    }
+
+    private static Either<String, String> notNull(String str) {
+        if (str == null && str.isEmpty()) {
+            return Either.left("String is null");
+        } else {
+            return Either.right(str);
+        }
+    }
+
+    private static Either<String, Object> notNull(Object obj) {
+        if (obj == null) {
+            return Either.left("Field is null");
+        } else {
+            return Either.right(obj);
+        }
+    }
+
+    private static Either<String, String> validID(String id) {
+            if (id == null) {
+                return Either.left("ID is null");
+            }
+            try {
+                double d = Double.parseDouble(id);
+            } catch (NumberFormatException nfe) {
+                return Either.left("ID is not valid");
+            }
+            return Either.right(id);
+    }
+
+    private static void showToast(android.content.Context context, String str) {
+        Toast.makeText(context, str, Toast.LENGTH_SHORT).show();
+    }
+
     private void getID(){
         etSoPhieu = TamUng.this.findViewById(R.id.etSoPhieu);
         etNgayUng = TamUng.this.findViewById(R.id.etNgayUng);
@@ -96,40 +142,48 @@ public class TamUng extends AppCompatActivity {
         btnThem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int maNV = Integer.parseInt(spinnerMaNV.getSelectedItem().toString());
-                AlertDialog.Builder builder = new AlertDialog.Builder(TamUng.this);
-                builder.setTitle("XAC NHAN");
-                builder.setMessage("XAC NHAN TAM UNG MOI CUA NHAN VIEN " + maNV + "?");
-                builder.setIcon(android.R.drawable.ic_dialog_alert);
-                builder.setPositiveButton("CO", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        try {
-                            String ngayUng = etNgayUng.getText().toString();
-                            int maNV = Integer.parseInt(spinnerMaNV.getSelectedItem().toString());
-                            int soTien = Integer.parseInt(etSoTien.getText().toString());
-                            Date tempDate = new Date(System.currentTimeMillis());
-                            if(!etNgayUng.getText().toString().isEmpty()){
-                                tempDate = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(etNgayUng.getText().toString());
+                if (notNull(spinnerMaNV.getSelectedItem()).isRight()) {
+                    if (validID(spinnerMaNV.getSelectedItem().toString()).isRight()) {
+                        int maNV = Integer.parseInt(spinnerMaNV.getSelectedItem().toString());
+                        AlertDialog.Builder builder = new AlertDialog.Builder(TamUng.this);
+                        builder.setTitle("XAC NHAN");
+                        builder.setMessage("XAC NHAN TAM UNG MOI CUA NHAN VIEN " + maNV + "?");
+                        builder.setIcon(android.R.drawable.ic_dialog_alert);
+                        builder.setPositiveButton("CO", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                try {
+                                    String ngayUng = etNgayUng.getText().toString();
+                                    int maNV = Integer.parseInt(spinnerMaNV.getSelectedItem().toString());
+                                    int soTien = Integer.parseInt(etSoTien.getText().toString());
+
+                                    if (notNull(ngayUng).isRight()) {
+                                        Date tempDate = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(notNull(ngayUng).get());
+                                        if (validNgayUng(tempDate).isRight()) {
+                                            TamUng_Reposiroty repo = new TamUng_Reposiroty(TamUng.this);
+                                            com.example.quanlyluong.Data.TamUng temp = new com.example.quanlyluong.Data.TamUng(-1, tempDate, maNV, soTien);
+                                            repo.create(temp);
+                                            getData();
+                                        } else {
+                                            showToast(TamUng.this, validNgayUng(tempDate).getLeft());
+                                        }
+                                    } else {
+                                        showToast(TamUng.this, notNull(ngayUng).getLeft());
+                                    }
+                                } catch (Exception e) {
+                                    Toast.makeText(TamUng.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    e.printStackTrace();
+                                }
                             }
-                            TamUng_Reposiroty repo = new TamUng_Reposiroty(TamUng.this);
-                            com.example.quanlyluong.Data.TamUng temp = new com.example.quanlyluong.Data.TamUng(-1, tempDate , maNV, soTien);
-                            //-------------------------------------------------------
-
-                            //validate input data
-
-                            //-------------------------------------------------------
-                            repo.create(temp);
-                            getData();
-                        }
-                        catch (Exception e){
-                            Toast.makeText(TamUng.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                            e.printStackTrace();
-                        }
+                        });
+                        builder.setNegativeButton("KHONG", null);
+                        builder.show();
+                    } else {
+                        showToast(TamUng.this, validID(spinnerMaNV.getSelectedItem().toString()).getLeft());
                     }
-                });
-                builder.setNegativeButton("KHONG", null);
-                builder.show();
+                } else {
+                    showToast(TamUng.this, notNull(spinnerMaNV.getSelectedItem()).getLeft());
+                }
             }
         });
 
@@ -209,6 +263,7 @@ public class TamUng extends AppCompatActivity {
             }
         });
     }
+
     private void getData(){
         try {
             dataTable.removeAllViews();
