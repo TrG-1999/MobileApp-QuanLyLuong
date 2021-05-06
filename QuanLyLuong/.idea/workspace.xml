@@ -29,12 +29,9 @@
       <change beforePath="$PROJECT_DIR$/.gradle/6.5/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.5/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/app/QuanLyLuong.app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/app/QuanLyLuong.app.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/quanlyluong/TamUng.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/quanlyluong/TamUng.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_quan_ly_phong_ban.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_quan_ly_phong_ban.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -224,31 +221,31 @@
     <state x="740" y="279" key="FileChooserDialogImpl/0.0.1920.1080/-1080.-357.1080.1920@0.0.1920.1080" timestamp="1619240843730" />
     <state x="740" y="279" key="FileChooserDialogImpl/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1620067807695" />
     <state x="740" y="279" key="FileChooserDialogImpl/0.0.1920.1080@0.0.1920.1080" timestamp="1619295981766" />
-    <state width="1320" height="172" key="GridCell.Tab.0.bottom" timestamp="1620323274648">
+    <state width="1320" height="172" key="GridCell.Tab.0.bottom" timestamp="1620325969370">
       <screen x="0" y="0" width="1366" height="731" />
     </state>
-    <state width="1320" height="172" key="GridCell.Tab.0.bottom/0.0.1366.731@0.0.1366.731" timestamp="1620323274648" />
+    <state width="1320" height="172" key="GridCell.Tab.0.bottom/0.0.1366.731@0.0.1366.731" timestamp="1620325969370" />
     <state width="1877" height="295" key="GridCell.Tab.0.bottom/0.0.1920.1080/-1080.-357.1080.1920@0.0.1920.1080" timestamp="1619241441079" />
     <state width="1877" height="436" key="GridCell.Tab.0.bottom/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1620118141762" />
     <state width="944" height="328" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1619300988207" />
-    <state width="1320" height="172" key="GridCell.Tab.0.center" timestamp="1620323274648">
+    <state width="1320" height="172" key="GridCell.Tab.0.center" timestamp="1620325969369">
       <screen x="0" y="0" width="1366" height="731" />
     </state>
-    <state width="1320" height="172" key="GridCell.Tab.0.center/0.0.1366.731@0.0.1366.731" timestamp="1620323274648" />
+    <state width="1320" height="172" key="GridCell.Tab.0.center/0.0.1366.731@0.0.1366.731" timestamp="1620325969369" />
     <state width="1877" height="295" key="GridCell.Tab.0.center/0.0.1920.1080/-1080.-357.1080.1920@0.0.1920.1080" timestamp="1619241441079" />
     <state width="1877" height="436" key="GridCell.Tab.0.center/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1620118141762" />
     <state width="944" height="328" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1619300988206" />
-    <state width="1320" height="172" key="GridCell.Tab.0.left" timestamp="1620323274643">
+    <state width="1320" height="172" key="GridCell.Tab.0.left" timestamp="1620325969368">
       <screen x="0" y="0" width="1366" height="731" />
     </state>
-    <state width="1320" height="172" key="GridCell.Tab.0.left/0.0.1366.731@0.0.1366.731" timestamp="1620323274643" />
+    <state width="1320" height="172" key="GridCell.Tab.0.left/0.0.1366.731@0.0.1366.731" timestamp="1620325969368" />
     <state width="1877" height="295" key="GridCell.Tab.0.left/0.0.1920.1080/-1080.-357.1080.1920@0.0.1920.1080" timestamp="1619241441079" />
     <state width="1877" height="436" key="GridCell.Tab.0.left/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1620118141762" />
     <state width="944" height="328" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1619300988206" />
-    <state width="1320" height="172" key="GridCell.Tab.0.right" timestamp="1620323274648">
+    <state width="1320" height="172" key="GridCell.Tab.0.right" timestamp="1620325969369">
       <screen x="0" y="0" width="1366" height="731" />
     </state>
-    <state width="1320" height="172" key="GridCell.Tab.0.right/0.0.1366.731@0.0.1366.731" timestamp="1620323274648" />
+    <state width="1320" height="172" key="GridCell.Tab.0.right/0.0.1366.731@0.0.1366.731" timestamp="1620325969369" />
     <state width="1877" height="295" key="GridCell.Tab.0.right/0.0.1920.1080/-1080.-357.1080.1920@0.0.1920.1080" timestamp="1619241441079" />
     <state width="1877" height="436" key="GridCell.Tab.0.right/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1620118141762" />
     <state width="944" height="328" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1619300988206" />
