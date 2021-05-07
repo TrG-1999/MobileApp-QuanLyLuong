@@ -101,7 +101,7 @@ public class TamUng extends AppCompatActivity {
     }
 
     private static Either<String, String> notNull(String str) {
-        if (str == null && str.isEmpty()) {
+        if (str == null || str.isEmpty()) {
             return Either.left("String is null");
         } else {
             return Either.right(str);
@@ -116,16 +116,16 @@ public class TamUng extends AppCompatActivity {
         }
     }
 
-    private static Either<String, String> validID(String id) {
-        if (id == null) {
-            return Either.left("ID is null");
+    private static Either<String, String> validNumber(String number) {
+        if (number == null) {
+            return Either.left("Number is null");
         }
         try {
-            double d = Double.parseDouble(id);
+            double d = Double.parseDouble(number);
         } catch (NumberFormatException nfe) {
-            return Either.left("ID is not valid");
+            return Either.left("Number is not valid");
         }
-        return Either.right(id);
+        return Either.right(number);
     }
 
     private static void showToast(android.content.Context context, String str) {
@@ -153,23 +153,20 @@ public class TamUng extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             try {
-                                String ngayUng = etNgayUng.getText().toString();
                                 int maNV = Integer.parseInt(spinnerMaNV.getSelectedItem().toString());
-                                int soTien = Integer.parseInt(etSoTien.getText().toString());
+                                String ngayUng = etNgayUng.getText().toString();
+                                if (notNull(ngayUng).isLeft())
+                                    Toast.makeText(TamUng.this, "Lỗi: 'Ngày ứng' trống", Toast.LENGTH_SHORT).show();
+                                Date tempDate = new SimpleDateFormat("dd/MM/yyyy").parse(ngayUng);
 
-                                if (notNull(ngayUng).isRight()) {
-                                    Date tempDate = new SimpleDateFormat("dd/MM/yyyy").parse(notNull(ngayUng).get());
-                                    if (validNgayUng(tempDate).isRight()) {
-                                        TamUng_Reposiroty repo = new TamUng_Reposiroty(TamUng.this);
-                                        com.example.quanlyluong.Data.TamUng temp = new com.example.quanlyluong.Data.TamUng(-1, tempDate, maNV, soTien);
-                                        repo.create(temp);
-                                        getData();
-                                    } else {
-                                        showToast(TamUng.this, validNgayUng(tempDate).getLeft());
-                                    }
-                                } else {
-                                    showToast(TamUng.this, notNull(ngayUng).getLeft());
-                                }
+                                String soTien = etSoTien.getText().toString();
+                                if (validNumber(soTien).isLeft())
+                                    Toast.makeText(TamUng.this, "Lỗi: 'Số tiền' không hợp lệ", Toast.LENGTH_SHORT).show();
+                                TamUng_Reposiroty repo = new TamUng_Reposiroty(TamUng.this);
+                                com.example.quanlyluong.Data.TamUng temp = new com.example.quanlyluong.Data.TamUng(-1, tempDate, maNV, Integer.parseInt(soTien));
+                                repo.create(temp);
+                                getData();
+
                             } catch (Exception e) {
                                 Toast.makeText(TamUng.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                                 e.printStackTrace();
@@ -202,19 +199,19 @@ public class TamUng extends AppCompatActivity {
                             String id = etSoPhieu.getText().toString();
                             TamUng_Reposiroty repo = new TamUng_Reposiroty(TamUng.this);
                             com.example.quanlyluong.Data.TamUng temp = repo.getById(Integer.parseInt(id));
-                            temp.setSoTien(Integer.parseInt(etSoTien.getText().toString()));
-                            String ngayUng = etNgayUng.getText().toString();
                             temp.setMaNV(Integer.parseInt(spinnerMaNV.getSelectedItem().toString()));
 
-                            temp.setSoTien(Integer.parseInt(etSoTien.getText().toString()));
-                            Date tempDate = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(ngayUng);
+                            String soTien = etSoTien.getText().toString();
+                            if (validNumber(soTien).isLeft())
+                                Toast.makeText(TamUng.this, "Lỗi: 'Số tiền' không hợp lệ", Toast.LENGTH_SHORT).show();
+                            temp.setSoTien(Integer.parseInt(soTien));
+
+                            String ngayUng = etNgayUng.getText().toString();
+                            if (notNull(ngayUng).isLeft())
+                                Toast.makeText(TamUng.this, "Lỗi: 'Ngày ứng' trống", Toast.LENGTH_SHORT).show();
+                            Date tempDate = new SimpleDateFormat("dd/MM/yyyy").parse(ngayUng);
                             temp.setNgay(tempDate);
 
-                            //-------------------------------------------------------
-
-                            //validate input data
-
-                            //-------------------------------------------------------
                             repo.update(temp);
                             getData();
                         } catch (Exception e) {
@@ -269,7 +266,7 @@ public class TamUng extends AppCompatActivity {
                 ((TextView) row.findViewById(R.id.soPhieu)).setText(String.valueOf(i.getSoPhieu()));
                 ((TextView) row.findViewById(R.id.soTien)).setText(String.valueOf(i.getSoTien()));
                 ((TextView) row.findViewById(R.id.maNV)).setText(String.valueOf(i.getMaNV()));
-                String tempDate = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(i.getNgay());
+                String tempDate = new SimpleDateFormat("dd/MM/yyyy").format(i.getNgay());
                 ((TextView) row.findViewById(R.id.ngayUng)).setText(tempDate);
                 row.setOnClickListener(new View.OnClickListener() {
                     @Override

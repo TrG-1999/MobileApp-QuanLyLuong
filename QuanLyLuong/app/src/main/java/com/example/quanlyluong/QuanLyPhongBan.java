@@ -25,6 +25,8 @@ import com.example.quanlyluong.Data.PhongBan;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.vavr.control.Either;
+
 public class QuanLyPhongBan extends AppCompatActivity {
     TableLayout dataTable;
     EditText etMaPB, etTenPB;
@@ -77,6 +79,15 @@ public class QuanLyPhongBan extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    private static Either<String, String> notNull(String str) {
+        if (str == null || str.isEmpty()) {
+            return Either.left("String is null");
+        } else {
+            return Either.right(str);
+        }
+    }
+
     private void getId(){
         dataTable =(TableLayout) QuanLyPhongBan.this.findViewById(R.id.tablePB);
 
@@ -97,17 +108,17 @@ public class QuanLyPhongBan extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         try {
                             String tenPB = etTenPB.getText().toString().toUpperCase();
-                            Phongban_Repository repo = new Phongban_Repository(QuanLyPhongBan.this);
-                            PhongBan phongBan = new PhongBan();
-                            phongBan.setMaPB(-1);
-                            phongBan.setTenPB(tenPB);
-                            //-------------------------------------------------------
-
-                            //validate input data
-
-                            //-------------------------------------------------------
-                            repo.create(phongBan);
-                            getData();
+                            if(notNull(tenPB).isRight()) {
+                                Phongban_Repository repo = new Phongban_Repository(QuanLyPhongBan.this);
+                                PhongBan phongBan = new PhongBan();
+                                phongBan.setMaPB(-1);
+                                phongBan.setTenPB(tenPB);
+                                repo.create(phongBan);
+                                getData();
+                            }
+                            else {
+                                Toast.makeText(QuanLyPhongBan.this, notNull(tenPB).getOrElse("'Tên phòng ban' trống"), Toast.LENGTH_SHORT).show();
+                            }
                         }
                         catch (Exception e){
                             Toast.makeText(QuanLyPhongBan.this, e.getMessage(), Toast.LENGTH_SHORT).show();

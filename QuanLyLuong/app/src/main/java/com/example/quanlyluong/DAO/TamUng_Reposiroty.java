@@ -9,8 +9,10 @@ import com.example.quanlyluong.Data.TamUng;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class TamUng_Reposiroty extends DatabaseHelper  implements DAO<TamUng> {
     public TamUng_Reposiroty(Context context) {
@@ -40,8 +42,14 @@ public class TamUng_Reposiroty extends DatabaseHelper  implements DAO<TamUng> {
                 TamUng temp = new TamUng();
                 temp.setSoPhieu(cursor.getInt(0));
                 String[] tempStr = cursor.getString(1).split(" ");
-                String dateStr = tempStr[1] + " " + tempStr[2] + " " + tempStr[tempStr.length-1]  + " " + tempStr[3];
-                Date tempDate = new SimpleDateFormat("MMMM dd yyyy HH:mm:ss").parse(dateStr);
+
+                Date date1 = new SimpleDateFormat("MMM", Locale.ENGLISH).parse(tempStr[1]);
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(date1);
+                int month = cal.get(Calendar.MONTH) + 1;
+                String dateStr = String.valueOf(month) + " " + tempStr[2] + " " + tempStr[tempStr.length-1];
+
+                Date tempDate = new SimpleDateFormat("MM dd yyyy").parse(dateStr);
                 temp.setNgay(tempDate);
                 temp.setMaNV(cursor.getInt(2));
                 temp.setSoTien(cursor.getInt(3));
@@ -63,8 +71,13 @@ public class TamUng_Reposiroty extends DatabaseHelper  implements DAO<TamUng> {
             result = new TamUng();
             result.setSoPhieu(cursor.getInt(0));
             String[] tempStr = cursor.getString(1).split(" ");
-            String dateStr = tempStr[1] + " " + tempStr[2] + " " + tempStr[tempStr.length-1]  + " " + tempStr[3];
-            Date tempDate = new SimpleDateFormat("MMMM dd yyyy HH:mm:ss").parse(dateStr);
+
+            Date date1 = new SimpleDateFormat("MMM", Locale.ENGLISH).parse(tempStr[1]);
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(date1);
+            int month = cal.get(Calendar.MONTH) + 1;
+            String dateStr = String.valueOf(month) + " " + tempStr[2] + " " + tempStr[tempStr.length-1];
+            Date tempDate = new SimpleDateFormat("MM dd yyyy").parse(dateStr);
             result.setNgay(tempDate);
             result.setMaNV(cursor.getInt(2));
             result.setSoTien(cursor.getInt(3));
@@ -83,8 +96,14 @@ public class TamUng_Reposiroty extends DatabaseHelper  implements DAO<TamUng> {
             result = new TamUng();
             result.setSoPhieu(cursor.getInt(0));
             String[] tempStr = cursor.getString(1).split(" ");
-            String dateStr = tempStr[1] + " " + tempStr[2] + " " + tempStr[tempStr.length-1]  + " " + tempStr[3];
-            Date tempDate = new SimpleDateFormat("MMMM dd yyyy HH:mm:ss").parse(dateStr);
+
+            Date date1 = new SimpleDateFormat("MMM", Locale.ENGLISH).parse(tempStr[1]);
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(date1);
+            int month = cal.get(Calendar.MONTH) + 1;
+            String dateStr = String.valueOf(month) + " " + tempStr[2] + " " + tempStr[tempStr.length-1];
+
+            Date tempDate = new SimpleDateFormat("MM dd yyyy").parse(dateStr);
             result.setNgay(tempDate);
             result.setMaNV(cursor.getInt(2));
             result.setSoTien(cursor.getInt(3));

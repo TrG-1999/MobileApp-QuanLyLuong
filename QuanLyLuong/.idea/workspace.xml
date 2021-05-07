@@ -30,7 +30,13 @@
       <change beforePath="$PROJECT_DIR$/.gradle/6.5/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/quanlyluong/DAO/NV_Repository.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/quanlyluong/DAO/NV_Repository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/quanlyluong/ChamCong.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/quanlyluong/ChamCong.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/quanlyluong/DAO/ChamCong_Repository.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/quanlyluong/DAO/ChamCong_Repository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/quanlyluong/DAO/TamUng_Reposiroty.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/quanlyluong/DAO/TamUng_Reposiroty.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/quanlyluong/QuanLyNhanVien.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/quanlyluong/QuanLyNhanVien.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/quanlyluong/QuanLyPhongBan.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/quanlyluong/QuanLyPhongBan.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/quanlyluong/TamUng.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/quanlyluong/TamUng.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_cham_cong.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_cham_cong.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,7 +79,7 @@
     <property name="last_opened_file_path" value="$USER_HOME$/Desktop" />
     <property name="multi-representation-previewC:/Users/PC/AppData/Local/Android/Sdk/sources/android-30/android/view/View.java_selected" value="Custom views" />
     <property name="multi-representation-previewC:/Users/anhquan/AppData/Local/Android/Sdk/sources/android-30/android/view/View.java_selected" value="Custom views" />
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
   <component name="RecentsManager">
     <key name="IntroduceConstantDialog.RECENTS_KEY">
@@ -221,31 +227,31 @@
     <state x="740" y="279" key="FileChooserDialogImpl/0.0.1920.1080/-1080.-357.1080.1920@0.0.1920.1080" timestamp="1619240843730" />
     <state x="740" y="279" key="FileChooserDialogImpl/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1620067807695" />
     <state x="740" y="279" key="FileChooserDialogImpl/0.0.1920.1080@0.0.1920.1080" timestamp="1619295981766" />
-    <state width="1320" height="193" key="GridCell.Tab.0.bottom" timestamp="1620382518111">
+    <state width="1320" height="193" key="GridCell.Tab.0.bottom" timestamp="1620405684134">
       <screen x="0" y="0" width="1366" height="731" />
     </state>
-    <state width="1320" height="193" key="GridCell.Tab.0.bottom/0.0.1366.731@0.0.1366.731" timestamp="1620382518111" />
+    <state width="1320" height="193" key="GridCell.Tab.0.bottom/0.0.1366.731@0.0.1366.731" timestamp="1620405684134" />
     <state width="1877" height="295" key="GridCell.Tab.0.bottom/0.0.1920.1080/-1080.-357.1080.1920@0.0.1920.1080" timestamp="1619241441079" />
     <state width="1877" height="436" key="GridCell.Tab.0.bottom/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1620118141762" />
     <state width="944" height="328" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1619300988207" />
-    <state width="1320" height="193" key="GridCell.Tab.0.center" timestamp="1620382518111">
+    <state width="1320" height="193" key="GridCell.Tab.0.center" timestamp="1620405684134">
       <screen x="0" y="0" width="1366" height="731" />
     </state>
-    <state width="1320" height="193" key="GridCell.Tab.0.center/0.0.1366.731@0.0.1366.731" timestamp="1620382518111" />
+    <state width="1320" height="193" key="GridCell.Tab.0.center/0.0.1366.731@0.0.1366.731" timestamp="1620405684134" />
     <state width="1877" height="295" key="GridCell.Tab.0.center/0.0.1920.1080/-1080.-357.1080.1920@0.0.1920.1080" timestamp="1619241441079" />
     <state width="1877" height="436" key="GridCell.Tab.0.center/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1620118141762" />
     <state width="944" height="328" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1619300988206" />
-    <state width="1320" height="193" key="GridCell.Tab.0.left" timestamp="1620382518110">
+    <state width="1320" height="193" key="GridCell.Tab.0.left" timestamp="1620405684133">
       <screen x="0" y="0" width="1366" height="731" />
     </state>
-    <state width="1320" height="193" key="GridCell.Tab.0.left/0.0.1366.731@0.0.1366.731" timestamp="1620382518110" />
+    <state width="1320" height="193" key="GridCell.Tab.0.left/0.0.1366.731@0.0.1366.731" timestamp="1620405684133" />
     <state width="1877" height="295" key="GridCell.Tab.0.left/0.0.1920.1080/-1080.-357.1080.1920@0.0.1920.1080" timestamp="1619241441079" />
     <state width="1877" height="436" key="GridCell.Tab.0.left/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1620118141762" />
     <state width="944" height="328" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1619300988206" />
-    <state width="1320" height="193" key="GridCell.Tab.0.right" timestamp="1620382518111">
+    <state width="1320" height="193" key="GridCell.Tab.0.right" timestamp="1620405684134">
       <screen x="0" y="0" width="1366" height="731" />
     </state>
-    <state width="1320" height="193" key="GridCell.Tab.0.right/0.0.1366.731@0.0.1366.731" timestamp="1620382518111" />
+    <state width="1320" height="193" key="GridCell.Tab.0.right/0.0.1366.731@0.0.1366.731" timestamp="1620405684134" />
     <state width="1877" height="295" key="GridCell.Tab.0.right/0.0.1920.1080/-1080.-357.1080.1920@0.0.1920.1080" timestamp="1619241441079" />
     <state width="1877" height="436" key="GridCell.Tab.0.right/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1620118141762" />
     <state width="944" height="328" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1619300988206" />
@@ -278,9 +284,10 @@
     </state>
     <state x="159" y="242" key="RollbackChangesDialog/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1620023529112" />
     <state x="159" y="242" key="RollbackChangesDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1619290573509" />
-    <state x="461" y="184" key="SettingsEditor" timestamp="1620062197157">
-      <screen x="0" y="0" width="1920" height="1080" />
+    <state x="328" y="1" key="SettingsEditor" timestamp="1620392854617">
+      <screen x="0" y="0" width="1366" height="731" />
     </state>
+    <state x="328" y="1" key="SettingsEditor/0.0.1366.731@0.0.1366.731" timestamp="1620392854617" />
     <state x="461" y="184" key="SettingsEditor/0.0.1920.1080/-1080.-357.1080.1920@0.0.1920.1080" timestamp="1619200188085" />
     <state x="461" y="184" key="SettingsEditor/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1620062197157" />
     <state x="461" y="184" key="SettingsEditor/0.0.1920.1080@0.0.1920.1080" timestamp="1619245667800" />
@@ -317,11 +324,6 @@
           <url>file://$PROJECT_DIR$/app/src/main/java/com/example/quanlyluong/DAO/NV_Repository.java</url>
           <line>133</line>
           <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/example/quanlyluong/QuanLyNhanVien.java</url>
-          <line>106</line>
-          <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
