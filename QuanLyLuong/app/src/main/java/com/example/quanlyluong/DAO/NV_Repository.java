@@ -12,8 +12,10 @@ import com.example.quanlyluong.ThongKe;
 import java.text.SimpleDateFormat;
 import java.time.Month;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.TimeZone;
 
 public class NV_Repository extends DatabaseHelper implements DAO<NV> {
@@ -50,8 +52,14 @@ public class NV_Repository extends DatabaseHelper implements DAO<NV> {
                 temp.setMaNV(cursor.getInt(0));
                 temp.setHoTen(cursor.getString(1));
                 String[] tempStr = cursor.getString(2).split(" ");
-                String dateStr = tempStr[1] + " " + tempStr[2] + " " + tempStr[tempStr.length-1];
-                Date tempDate = new SimpleDateFormat("MMMM dd yyyy").parse(dateStr);
+
+                Date date = new SimpleDateFormat("MMM", Locale.ENGLISH).parse(tempStr[1]);
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(date);
+                int month = cal.get(Calendar.MONTH) + 1;
+
+                String dateStr = String.valueOf(month) + " " + tempStr[2] + " " + tempStr[tempStr.length-1];
+                Date tempDate = new SimpleDateFormat("MM dd yyyy").parse(dateStr);
                 temp.setNgaySinh(tempDate);
                 temp.setMaPB(cursor.getInt(3));
                 temp.setMucLuong(cursor.getInt(4));
@@ -74,8 +82,14 @@ public class NV_Repository extends DatabaseHelper implements DAO<NV> {
             result.setMaNV(cursor.getInt(0));
             result.setHoTen(cursor.getString(1));
             String[] tempStr = cursor.getString(2).split(" ");
-            String dateStr = tempStr[1] + " " + tempStr[2] + " " + tempStr[tempStr.length-1];
-            Date tempDate = new SimpleDateFormat("MMMM dd yyyy").parse(dateStr);
+
+            Date date = new SimpleDateFormat("MMM", Locale.ENGLISH).parse(tempStr[1]);
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(date);
+            int month = cal.get(Calendar.MONTH) + 1;
+
+            String dateStr = String.valueOf(month) + " " + tempStr[2] + " " + tempStr[tempStr.length-1];
+            Date tempDate = new SimpleDateFormat("MM dd yyyy").parse(dateStr);
             result.setNgaySinh(tempDate);
             result.setMaPB(cursor.getInt(3));
             result.setMucLuong(cursor.getInt(4));
