@@ -1,20 +1,42 @@
 package com.example.quanlyluong;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.quanlyluong.DAO.Phongban_Repository;
+import com.example.quanlyluong.Data.PhongBan;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import io.vavr.control.Either;
 
 public class QuanLyPhongBan extends AppCompatActivity {
-
+    TableLayout dataTable;
+    EditText etMaPB, etTenPB;
+    Button btnXoa, btnSua, btnThem;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quan_ly_phong_ban);
-
+        getId();
+        getData();
     }
 
     @Override
@@ -56,5 +78,149 @@ public class QuanLyPhongBan extends AppCompatActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private static Either<String, String> notNull(String str) {
+        if (str == null || str.isEmpty()) {
+            return Either.left("String is null");
+        } else {
+            return Either.right(str);
+        }
+    }
+
+    private void getId(){
+        dataTable =(TableLayout) QuanLyPhongBan.this.findViewById(R.id.tablePB);
+
+        etTenPB = (EditText) QuanLyPhongBan.this.findViewById(R.id.etTenPB);
+        etMaPB = (EditText) QuanLyPhongBan.this.findViewById(R.id.etMaPB);
+
+        btnThem = (Button) QuanLyPhongBan.this.findViewById(R.id.btnThemPB);
+        btnThem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String tenPB = etTenPB.getText().toString().toUpperCase();
+                AlertDialog.Builder buidler = new AlertDialog.Builder(QuanLyPhongBan.this);
+                buidler.setTitle("XAC NHAN");
+                buidler.setMessage("BAN CO MUON TAO PHONG BAN " + tenPB + "?");
+                buidler.setIcon(android.R.drawable.ic_dialog_alert);
+                buidler.setPositiveButton("CO", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        try {
+                            String tenPB = etTenPB.getText().toString().toUpperCase();
+                            if(notNull(tenPB).isRight()) {
+                                Phongban_Repository repo = new Phongban_Repository(QuanLyPhongBan.this);
+                                PhongBan phongBan = new PhongBan();
+                                phongBan.setMaPB(-1);
+                                phongBan.setTenPB(tenPB);
+                                repo.create(phongBan);
+                                getData();
+                            }
+                            else {
+                                Toast.makeText(QuanLyPhongBan.this, notNull(tenPB).getOrElse("'Tên phòng ban' trống"), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                        catch (Exception e){
+                            Toast.makeText(QuanLyPhongBan.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            e.printStackTrace();
+                        }
+                    }
+                });
+                buidler.setNegativeButton("KHONG", null);
+                buidler.show();
+            }
+        });
+        btnSua = (Button) QuanLyPhongBan.this.findViewById(R.id.btnSuaPB);
+        btnSua.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String tenPB = etTenPB.getText().toString().toUpperCase();
+                AlertDialog.Builder buidler = new AlertDialog.Builder(QuanLyPhongBan.this);
+                buidler.setTitle("XAC NHAN");
+                buidler.setMessage("BAN CO MUON SUA THANH " + tenPB + "?");
+                buidler.setIcon(android.R.drawable.ic_dialog_alert);
+                buidler.setPositiveButton("CO", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        try {
+                            String tenPB = etTenPB.getText().toString().toUpperCase();
+                            Phongban_Repository repo = new Phongban_Repository(QuanLyPhongBan.this);
+                            int id = Integer.parseInt(String.valueOf(etMaPB.getText()));
+                            PhongBan phongBan = repo.getById(id);
+                            phongBan.setTenPB(tenPB);
+                            //-------------------------------------------------------
+
+                            //validate input data
+
+                            //-------------------------------------------------------
+                            repo.update(phongBan);
+                            getData();
+                        }
+                        catch (Exception e){
+                            Toast.makeText(QuanLyPhongBan.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            e.printStackTrace();
+                        }
+                    }
+                });
+                buidler.setNegativeButton("KHONG", null);
+                buidler.show();
+            }
+        });
+        btnXoa = (Button) QuanLyPhongBan.this.findViewById(R.id.btnXoaPB);
+        btnXoa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String tenPB = etTenPB.getText().toString().toUpperCase();
+                AlertDialog.Builder buidler = new AlertDialog.Builder(QuanLyPhongBan.this);
+                buidler.setTitle("XAC NHAN");
+                buidler.setMessage("BAN CO MUON XOA PHONG BAN " + tenPB + "?");
+                buidler.setIcon(android.R.drawable.ic_dialog_alert);
+                buidler.setPositiveButton("CO", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        try {
+                            int id = Integer.parseInt(String.valueOf(etMaPB.getText()));
+                            Phongban_Repository repo = new Phongban_Repository(QuanLyPhongBan.this);
+                            repo.deleteById(id);
+                            getData();
+                        }
+                        catch (Exception e){
+                            Toast.makeText(QuanLyPhongBan.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            e.printStackTrace();
+                        }
+                    }
+                });
+                buidler.setNegativeButton("KHONG", null);
+                buidler.show();
+            }
+        });
+    }
+
+    private void getData(){
+        try {
+            dataTable.removeAllViews();
+            Phongban_Repository repo = new Phongban_Repository(this);
+            List<PhongBan> data = repo.getAll();
+            for( PhongBan i : data){
+                TableRow row = (TableRow) LayoutInflater.from(QuanLyPhongBan.this).inflate(R.layout.table_row_pb, null);
+                ((TextView)row.findViewById(R.id.tenPB)).setText(i.getTenPB());
+                ((TextView)row.findViewById(R.id.maPB)).setText((String.valueOf(i.getMaPB())));
+                row.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String maPB = (String) ((TextView)row.findViewById(R.id.maPB)).getText();
+                        String tenPB = (String) ((TextView)row.findViewById(R.id.tenPB)).getText();
+                        etMaPB.setText(maPB);
+                        etTenPB.setText(tenPB);
+                    }
+                });
+                dataTable.addView(row);
+            }
+            dataTable.requestLayout();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+        }
     }
 }

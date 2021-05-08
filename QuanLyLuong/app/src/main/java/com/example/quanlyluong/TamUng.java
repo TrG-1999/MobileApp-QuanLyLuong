@@ -1,20 +1,54 @@
 package com.example.quanlyluong;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.quanlyluong.DAO.NV_Repository;
+import com.example.quanlyluong.DAO.Phongban_Repository;
+import com.example.quanlyluong.DAO.TamUng_Reposiroty;
+import com.example.quanlyluong.Data.NV;
+import com.example.quanlyluong.Data.PhongBan;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import io.vavr.Function2;
+import io.vavr.control.Either;
+
+import static io.vavr.API.run;
 
 public class TamUng extends AppCompatActivity {
+    EditText etSoPhieu, etNgayUng, etSoTien;
+    Spinner spinnerMaNV;
+    Button btnXoa, btnSua, btnThem;
+    TableLayout dataTable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tam_ung);
-
+        getID();
+        getSpinnerData();
+        getData();
     }
 
     @Override
@@ -58,8 +92,6 @@ public class TamUng extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-<<<<<<< Updated upstream
-=======
     private static Either<String, Date> validNgayUng(Date date) {
         if (date == null) {
             return Either.left("Ngay ung tien khong hop le");
@@ -123,9 +155,9 @@ public class TamUng extends AppCompatActivity {
                             try {
                                 int maNV = Integer.parseInt(spinnerMaNV.getSelectedItem().toString());
                                 String ngayUng = etNgayUng.getText().toString();
-                                Date tempDate = new Date(System.currentTimeMillis());
-                                if (notNull(ngayUng).isRight())
-                                    tempDate = new SimpleDateFormat("dd/MM/yyyy").parse(ngayUng);
+                                if (notNull(ngayUng).isLeft())
+                                    Toast.makeText(TamUng.this, "Lỗi: 'Ngày ứng' trống", Toast.LENGTH_SHORT).show();
+                                Date tempDate = new SimpleDateFormat("dd/MM/yyyy").parse(ngayUng);
 
                                 String soTien = etSoTien.getText().toString();
                                 if (validNumber(soTien).isLeft())
@@ -279,5 +311,4 @@ public class TamUng extends AppCompatActivity {
             e.printStackTrace();
         }
     }
->>>>>>> Stashed changes
 }
