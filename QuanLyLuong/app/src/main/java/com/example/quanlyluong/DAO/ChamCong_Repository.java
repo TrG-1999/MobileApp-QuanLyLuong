@@ -9,8 +9,10 @@ import com.example.quanlyluong.Data.ChamCong;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class ChamCong_Repository extends DatabaseHelper implements DAO<ChamCong>  {
     public ChamCong_Repository(Context context) {
@@ -40,8 +42,14 @@ public class ChamCong_Repository extends DatabaseHelper implements DAO<ChamCong>
                 ChamCong temp = new ChamCong();
                 temp.setMaNV(cursor.getInt(0));
                 String[] tempStr = cursor.getString(1).split(" ");
-                String dateStr = tempStr[1] + " " + tempStr[2] + " " + tempStr[tempStr.length-1]  + " " + tempStr[3];
-                Date tempDate = new SimpleDateFormat("MMMM dd yyyy HH:mm:ss").parse(dateStr);
+
+                Date date = new SimpleDateFormat("MMM", Locale.ENGLISH).parse(tempStr[1]);
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(date);
+                int month = cal.get(Calendar.MONTH) + 1;
+                String dateStr = String.valueOf(month) + " " + tempStr[2] + " " + tempStr[tempStr.length-1];
+
+                Date tempDate = new SimpleDateFormat("MM dd yyyy").parse(dateStr);
                 temp.setNgayGhiSo(tempDate);
                 temp.setSoNgayCong(cursor.getInt(2));
                 resultList.add(temp);
@@ -68,8 +76,14 @@ public class ChamCong_Repository extends DatabaseHelper implements DAO<ChamCong>
             result = new ChamCong();
             result.setMaNV(cursor.getInt(0));
             String[] tempStr = cursor.getString(1).split(" ");
-            String dateStr = tempStr[1] + " " + tempStr[2] + " " + tempStr[tempStr.length-1]  + " " + tempStr[3];
-            Date tempDate = new SimpleDateFormat("MMMM dd yyyy HH:mm:ss").parse(dateStr);
+
+            Date date1 = new SimpleDateFormat("MMM", Locale.ENGLISH).parse(tempStr[1]);
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(date1);
+            int month = cal.get(Calendar.MONTH) + 1;
+            String dateStr = String.valueOf(month) + " " + tempStr[2] + " " + tempStr[tempStr.length-1];
+
+            Date tempDate = new SimpleDateFormat("MM dd yyyy").parse(dateStr);
             result.setNgayGhiSo(tempDate);
             result.setSoNgayCong(cursor.getInt(2));
         }

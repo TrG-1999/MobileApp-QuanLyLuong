@@ -25,10 +25,13 @@ import com.example.quanlyluong.DAO.Phongban_Repository;
 import com.example.quanlyluong.Data.NV;
 import com.example.quanlyluong.Data.PhongBan;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import io.vavr.control.Either;
 
 
 public class QuanLyNhanVien extends AppCompatActivity {
@@ -86,6 +89,35 @@ public class QuanLyNhanVien extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    private static Either<String, String> notNull(String str) {
+        if (str == null || str.isEmpty()) {
+            return Either.left("String is null");
+        } else {
+            return Either.right(str);
+        }
+    }
+
+    private static Either<String, Date> validDate(Date date) {
+        if (date == null) {
+            return Either.left("Ngay ung tien khong hop le");
+        } else {
+            return Either.right(date);
+        }
+    }
+
+    private static Either<String, String> validNumber(String number) {
+        if (number == null) {
+            return Either.left("Number is null");
+        }
+        try {
+            double d = Double.parseDouble(number);
+        } catch (NumberFormatException nfe) {
+            return Either.left("Number is not valid");
+        }
+        return Either.right(number);
+    }
+
     private void getID(){
         etMaNV = QuanLyNhanVien.this.findViewById(R.id.etMaNV);
         etMucLuong = QuanLyNhanVien.this.findViewById(R.id.etMucLuongNV);
@@ -109,18 +141,27 @@ public class QuanLyNhanVien extends AppCompatActivity {
                             String ngaySinh = etNgaySinh.getText().toString();
                             String maPB = spinnerMaPB.getSelectedItem().toString();
                             String mucLuong = etMucLuong.getText().toString();
-                            Date tempDate = new SimpleDateFormat("dd/MM/yyyy").parse(ngaySinh);
-                            NV_Repository repo = new NV_Repository(QuanLyNhanVien.this);
-                            NV temp = new NV(-1, tenNV, tempDate , Integer.parseInt(maPB), Integer.parseInt(mucLuong));
-                            //-------------------------------------------------------
-
-                            //validate input data
-
-                            //-------------------------------------------------------
-                            repo.create(temp);
-                            getData();
-                        }
-                        catch (Exception e){
+                            if (notNull(tenNV).isRight() && notNull(ngaySinh).isRight() && validNumber(mucLuong).isRight()) {
+                                Date tempDate = new SimpleDateFormat("dd/MM/yyyy").parse(ngaySinh);
+                                if (validDate(tempDate).isRight()) {
+                                    NV_Repository repo = new NV_Repository(QuanLyNhanVien.this);
+                                    NV temp = new NV(-1, tenNV, tempDate , Integer.parseInt(maPB), Integer.parseInt(mucLuong));
+                                    repo.create(temp);
+                                    getData();
+                                } else {
+                                    Toast.makeText(QuanLyNhanVien.this, "Lỗi: 'Ngày sinh' không hợp lệ", Toast.LENGTH_SHORT).show();
+                                }
+                            } else if (notNull(tenNV).isLeft()){
+                                Toast.makeText(QuanLyNhanVien.this, "Lỗi: 'Tên nhân viên' trống", Toast.LENGTH_SHORT).show();
+                            } else if (notNull(ngaySinh).isLeft()) {
+                                Toast.makeText(QuanLyNhanVien.this, "Lỗi: 'Ngày sinh' trống", Toast.LENGTH_SHORT).show();
+                            } else if (validNumber(mucLuong).isLeft()){
+                                Toast.makeText(QuanLyNhanVien.this, "Lỗi: 'Lương' trống", Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (ParseException e) {
+                            Toast.makeText(QuanLyNhanVien.this, "Lỗi: 'Ngày sinh' không hợp lệ", Toast.LENGTH_SHORT).show();
+                            e.printStackTrace();
+                        } catch (Exception e){
                             Toast.makeText(QuanLyNhanVien.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                             e.printStackTrace();
                         }
@@ -145,27 +186,44 @@ public class QuanLyNhanVien extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         try {
-                            String id = etMaNV.getText().toString();
-                            if(id.equalsIgnoreCase("")) throw new Exception("KHONG NHAN VIEN NAO DUOC CHON");
                             NV_Repository repo = new NV_Repository(QuanLyNhanVien.this);
-                            NV temp = repo.getById(Integer.parseInt(id));
-                            temp.setHoTen(etTenNV.getText().toString().toUpperCase());
-                            String ngaySinh = etNgaySinh.getText().toString();
-                            temp.setMaPB(Integer.parseInt(spinnerMaPB.getSelectedItem().toString()));
 
-                            temp.setMucLuong(Integer.parseInt(etMucLuong.getText().toString()));
-                            Date tempDate = new SimpleDateFormat("dd/MM/yyyy").parse(etNgaySinh.getText().toString());
+                            String id = etMaNV.getText().toString();
+                            if (notNull(id).isLeft())
+                                throw new Exception("Lỗi: Không nhân viên nào được chọn");
+                            NV temp = repo.getById(Integer.parseInt(id));
+                            //Update name
+                            String tenNV = etTenNV.getText().toString().toUpperCase();
+                            if (notNull(tenNV).isLeft())
+                                throw new Exception("Lỗi: 'Tên nhân viên' trống");
+                            temp.setHoTen(tenNV);
+                            //Update PhongBan
+                            String maPB = spinnerMaPB.getSelectedItem().toString();
+                            if (validNumber(maPB).isLeft())
+                                throw new Exception("Lỗi: 'Mã phòng ban' trống");
+                            temp.setMaPB(Integer.parseInt(maPB));
+                            //Update muc luong
+                            String mucLuong = etMucLuong.getText().toString();
+                            if (validNumber(mucLuong).isLeft())
+                                throw new Exception("Lỗi: 'Lương' không hợp lệ");
+                            temp.setMucLuong(Integer.parseInt(mucLuong));
+                            //Update ngay sinh
+                            String ngaySinh = etNgaySinh.getText().toString();
+                            if (notNull(ngaySinh).isLeft())
+                                throw new Exception("Lỗi: 'Ngày sinh' trống");
+                            Date tempDate = new SimpleDateFormat("dd/MM/yyyy").parse(ngaySinh);
                             temp.setNgaySinh(tempDate);
 
-                            //-------------------------------------------------------
-
-                            //validate input data
-
-                            //-------------------------------------------------------
                             repo.update(temp);
                             getData();
                         }
-                        catch (Exception e){
+                        catch (NumberFormatException e) {
+                                Toast.makeText(QuanLyNhanVien.this, "Lỗi: 'Lương' không hợp lệ", Toast.LENGTH_SHORT).show();
+                                e.printStackTrace();
+                        } catch (ParseException e) {
+                            Toast.makeText(QuanLyNhanVien.this, "Lỗi: 'Ngày sinh' không hợp lệ", Toast.LENGTH_SHORT).show();
+                            e.printStackTrace();
+                        } catch (Exception e){
                             Toast.makeText(QuanLyNhanVien.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                             e.printStackTrace();
                         }
