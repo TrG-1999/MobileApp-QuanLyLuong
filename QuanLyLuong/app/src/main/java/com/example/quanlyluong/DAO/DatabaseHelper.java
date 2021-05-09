@@ -23,6 +23,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     protected static final String CHAMCONG_TABLE = "CHAMCONG";
     protected static final String NGAYGHISO_COLUMN = "NGAYGHISO";
     protected static final String SONGAYCONG_COLUMN = "SONGAYCONG";
+    protected static final String DIEMTHUONG_COLUMN = "DIEMTHUONG";
     SQLiteDatabase temp;
     public DatabaseHelper(Context context) {
         super(context, "QUAN_LI_LUONG", null, 1);
@@ -67,6 +68,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "   MANV INTEGER NOT NULL,\n" +
                 "   NGAYGHISO DATETIME NOT NULL,\n" +
                 "   SONGAYCONG INTEGER NOT NULL,\n" +
+                "   DIEMTHUONG INTEGER NOT NULL,\n" +
                 "   PRIMARY KEY(MANV, NGAYGHISO),\n" +
                 "   CONSTRAINT fk_CHAMCONG_NV\n" +
                 "    \tFOREIGN KEY (MANV)\n" +

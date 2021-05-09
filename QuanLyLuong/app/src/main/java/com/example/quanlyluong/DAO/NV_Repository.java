@@ -130,16 +130,18 @@ public class NV_Repository extends DatabaseHelper implements DAO<NV> {
         if(cursor.moveToFirst()) return true;
         return false;
     }
-    public List<NV_ThongKe> thongKe(String maPB, String thang, String nam, String luong) throws Exception{
+    public List<NV_ThongKe> thongKe(String maPB, String thang, String nam) throws Exception{
         SQLiteDatabase db = this.getReadableDatabase();
         String currentMonth = months[Integer.parseInt(thang)-1];
         String queryST ="SELECT NHANVIEN.MANV, NHANVIEN.HOTEN, NHANVIEN.MAPB,\n" +
-                " (CHAMCONG.SONGAYCONG * NHANVIEN.MUCLUONG) AS  TONG_LUONG\n" +
+                " CHAMCONG.DIEMTHUONG\n" +
                 " FROM NHANVIEN\n" +
-                " INNER JOIN CHAMCONG ON NHANVIEN.MANV = CHAMCONG.MANV WHERE TONG_LUONG > "+ luong +"\n" +
-                " AND NGAYGHISO like '%" + currentMonth + "%' \n" +
+                " INNER JOIN CHAMCONG ON NHANVIEN.MANV = CHAMCONG.MANV WHERE " + "\n" +
+                " NGAYGHISO like '%" + currentMonth + "%' \n" +
                 " AND NGAYGHISO like '%" + nam + "%'\n" +
-                " AND NHANVIEN.MAPB = " + maPB;
+                " AND NHANVIEN.MAPB = " + maPB +
+                " ORDER BY CHAMCONG.DIEMTHUONG\n" +
+                " LIMIT 10";
         Cursor cursor = db.rawQuery(queryST,null);
         List<NV_ThongKe> result = new ArrayList<>();
         if(cursor.moveToFirst()){

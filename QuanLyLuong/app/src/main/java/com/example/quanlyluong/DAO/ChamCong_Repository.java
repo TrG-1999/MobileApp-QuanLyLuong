@@ -26,6 +26,7 @@ public class ChamCong_Repository extends DatabaseHelper implements DAO<ChamCong>
         cv.put(this.MANV_COLMN, chamCong.getMaNV());
         cv.put(this.NGAYGHISO_COLUMN, chamCong.getNgayGhiSo().toString());
         cv.put(this.SONGAYCONG_COLUMN, chamCong.getSoNgayCong());
+        cv.put(this.DIEMTHUONG_COLUMN, chamCong.getDiemThuong());
         long create = db.insert(this.CHAMCONG_TABLE, null, cv);
         if(create > 0) return true;
         return false;
@@ -52,6 +53,7 @@ public class ChamCong_Repository extends DatabaseHelper implements DAO<ChamCong>
                 Date tempDate = new SimpleDateFormat("MM dd yyyy").parse(dateStr);
                 temp.setNgayGhiSo(tempDate);
                 temp.setSoNgayCong(cursor.getInt(2));
+                temp.setDiemThuong(cursor.getInt(3));
                 resultList.add(temp);
             }while(cursor.moveToNext());
         }
@@ -86,6 +88,7 @@ public class ChamCong_Repository extends DatabaseHelper implements DAO<ChamCong>
             Date tempDate = new SimpleDateFormat("MM dd yyyy").parse(dateStr);
             result.setNgayGhiSo(tempDate);
             result.setSoNgayCong(cursor.getInt(2));
+            result.setDiemThuong(cursor.getInt(3));
         }
         db.close();
         cursor.close();
@@ -119,7 +122,9 @@ public class ChamCong_Repository extends DatabaseHelper implements DAO<ChamCong>
     public boolean update(ChamCong chamCong) throws Exception {
         SQLiteDatabase db = this.getWritableDatabase();
         String queryST = "UPDATE "+  this.CHAMCONG_TABLE + " SET " +
-                this.SONGAYCONG_COLUMN + " = " + chamCong.getSoNgayCong() + " " +
+                this.SONGAYCONG_COLUMN + " = " + chamCong.getSoNgayCong() + ", "
+                + DIEMTHUONG_COLUMN +" = '"
+                + chamCong.getDiemThuong() + "' " +
                 " WHERE " + MANV_COLMN +" = '"
                 + chamCong.getMaNV() + "' " + "AND "
                 + NGAYGHISO_COLUMN + " ='" + chamCong.getNgayGhiSo().toString() + "'";

@@ -156,10 +156,10 @@ public class ThongKe extends AppCompatActivity {
             String maPB = spinnerMaPB.getSelectedItem().toString();
             String nam = spinnerNam.getSelectedItem().toString();
             String thang = spinnerThang.getSelectedItem().toString();
-            if(luong.isEmpty() || maPB.isEmpty() || nam.isEmpty() || thang.isEmpty()) return;
+            if(maPB.isEmpty() || nam.isEmpty() || thang.isEmpty()) return;
             dataTable.removeAllViews();
             NV_Repository repo = new NV_Repository(this);
-            List<NV_ThongKe> data = repo.thongKe(maPB, thang, nam, luong);
+            List<NV_ThongKe> data = repo.thongKe(maPB, thang, nam);
             for( NV_ThongKe i : data){
                 TableRow row = (TableRow) LayoutInflater.from(ThongKe.this).inflate(R.layout.table_row_thongke, null);
                 ((TextView)row.findViewById(R.id.maNV)).setText(String.valueOf(i.getMaNV()));

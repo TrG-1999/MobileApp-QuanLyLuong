@@ -6,6 +6,7 @@ public class ChamCong {
     private int maNV;
     private Date ngayGhiSo;
     private int soNgayCong;
+    private int diemThuong;
 
     public int getMaNV() {
         return maNV;
@@ -34,10 +35,12 @@ public class ChamCong {
     public ChamCong() {
     }
 
-    public ChamCong(int maNV, Date ngayGhiSo, int soNgayCong) {
-        this.maNV = maNV;
-        this.ngayGhiSo = ngayGhiSo;
-        this.soNgayCong = soNgayCong;
+    public int getDiemThuong() {
+        return diemThuong;
+    }
+
+    public void setDiemThuong(int diemThuong) {
+        this.diemThuong = diemThuong;
     }
 
     @Override
@@ -46,6 +49,14 @@ public class ChamCong {
                 "maNV=" + maNV +
                 ", ngayGhiSo=" + ngayGhiSo +
                 ", soNgayCong=" + soNgayCong +
+                ", diemThuong=" + diemThuong +
                 '}';
+    }
+
+    public ChamCong(int maNV, Date ngayGhiSo, int soNgayCong, int diemThuong) {
+        this.maNV = maNV;
+        this.ngayGhiSo = ngayGhiSo;
+        this.soNgayCong = soNgayCong;
+        this.diemThuong = diemThuong;
     }
 }

@@ -36,7 +36,7 @@ import io.vavr.control.Either;
 
 
 public class ChamCong extends AppCompatActivity {
-    EditText etNgayGhi, etSoNgayCong;
+    EditText etNgayGhi, etSoNgayCong, etDiemThuong;
     Button btnXoa, btnSua, btnThem;
     TableLayout dataTable;
     Spinner spinnerMaNV;
@@ -123,6 +123,7 @@ public class ChamCong extends AppCompatActivity {
         spinnerMaNV = ChamCong.this.findViewById(R.id.spinnerMaNV);
         etNgayGhi = ChamCong.this.findViewById(R.id.etNgayGhi);
         etSoNgayCong = ChamCong.this.findViewById(R.id.etSoNgayCong);
+        etDiemThuong = ChamCong.this.findViewById(R.id.etDiemThuong);
         dataTable = ChamCong.this.findViewById(R.id.tableCC);
 
         btnSua = ChamCong.this.findViewById(R.id.btnSuaCC);
@@ -153,8 +154,14 @@ public class ChamCong extends AppCompatActivity {
                             String soNgayCong = etSoNgayCong.getText().toString();
                             if (validNumber(soNgayCong).isLeft())
                                 throw new Exception("Lỗi: 'Số ngày công' trống");
+                            // update diem thuong
+                            String diemThuong = etDiemThuong.getText().toString();
+                            if (notNull(diemThuong).isLeft())
+                                diemThuong = "0";
+
                             com.example.quanlyluong.Data.ChamCong cc = repo.getByIdAndDate(Integer.parseInt(maNV), date);
                             cc.setSoNgayCong(Integer.parseInt(soNgayCong));
+                            cc.setDiemThuong(Integer.parseInt(diemThuong));
                             repo.update(cc);
                             getData();
                         } catch (ParseException e) {
@@ -202,7 +209,11 @@ public class ChamCong extends AppCompatActivity {
                             String soNgayCong = etSoNgayCong.getText().toString();
                             if (notNull(soNgayCong).isLeft())
                                 throw new Exception("Lỗi: 'Số ngày công' trống");
-                            com.example.quanlyluong.Data.ChamCong cc = new com.example.quanlyluong.Data.ChamCong(Integer.parseInt(maNV), date, Integer.parseInt(soNgayCong));
+                            // add diem thuong
+                            String diemThuong = etDiemThuong.getText().toString();
+                            if (notNull(diemThuong).isLeft())
+                                diemThuong = "0";
+                            com.example.quanlyluong.Data.ChamCong cc = new com.example.quanlyluong.Data.ChamCong(Integer.parseInt(maNV), date, Integer.parseInt(soNgayCong), Integer.parseInt(diemThuong));
                             repo.create(cc);
                             getData();
                         } catch (ParseException e) {
@@ -261,12 +272,14 @@ public class ChamCong extends AppCompatActivity {
                 String tempDate = new SimpleDateFormat("dd/MM/yyyy").format(i.getNgayGhiSo());
                 ((TextView) row.findViewById(R.id.ngayGhi)).setText(tempDate);
                 ((TextView) row.findViewById(R.id.soNgayCong)).setText((String.valueOf(i.getSoNgayCong())));
+                ((TextView) row.findViewById(R.id.diemThuong)).setText((String.valueOf(i.getDiemThuong())));
                 row.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         String maNV = (String) ((TextView) row.findViewById(R.id.maNV)).getText();
                         String ngayGhi = (String) ((TextView) row.findViewById(R.id.ngayGhi)).getText();
                         String soNgayCong = (String) ((TextView) row.findViewById(R.id.soNgayCong)).getText();
+                        String diemThuong = (String) ((TextView) row.findViewById(R.id.diemThuong)).getText();
                         for (int i = 0; i < spinnerMaNV.getCount(); i++) {
                             if (spinnerMaNV.getItemAtPosition(i).toString().equalsIgnoreCase(maNV)) {
                                 spinnerMaNV.setSelection(i);
@@ -275,6 +288,7 @@ public class ChamCong extends AppCompatActivity {
                         }
                         etSoNgayCong.setText(soNgayCong);
                         etNgayGhi.setText(ngayGhi);
+                        etDiemThuong.setText(diemThuong);
                     }
                 });
                 dataTable.addView(row);

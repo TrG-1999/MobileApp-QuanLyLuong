@@ -30,13 +30,13 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:orientation="horizontal">
 
         <TextView
             android:id="@+id/textView34"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginLeft="5dp"
             android:layout_weight="1"
             android:text="Năm"
@@ -45,13 +45,13 @@
         <Spinner
             android:id="@+id/spinnerNam"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1" />
 
         <TextView
             android:id="@+id/textView35"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginLeft="5dp"
             android:layout_weight="1"
             android:text="Bộ phận"
@@ -60,13 +60,13 @@
         <Spinner
             android:id="@+id/spinnerMaPB"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:orientation="horizontal">
 
         <TextView
@@ -89,7 +89,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_marginBottom="10dp"
         android:orientation="horizontal">
 
@@ -103,22 +103,6 @@
             android:textSize="18sp"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/textView41"
-            android:layout_width="85dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1"
-            android:text="Lương"
-            android:textSize="18sp" />
-
-        <EditText
-            android:id="@+id/etLuong"
-            android:layout_width="162dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="textPersonName" />
     </LinearLayout>
 
     <TableLayout
@@ -133,7 +117,7 @@
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_column="0"
                 android:padding="3dp"
                 android:text="Mã NV"
@@ -143,7 +127,7 @@
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_column="1"
                 android:padding="3dp"
                 android:text="Tên NV"
@@ -153,7 +137,7 @@
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_column="2"
                 android:padding="3dp"
                 android:text="Mã PB"
@@ -163,10 +147,10 @@
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_column="3"
                 android:padding="3dp"
-                android:text="Lương"
+                android:text="Điểm thưởng"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:background="@drawable/table_row_border_pb"/>
