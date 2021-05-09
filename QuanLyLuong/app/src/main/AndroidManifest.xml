@@ -14,7 +14,9 @@
         <activity android:name=".TamUng" />
         <activity android:name=".ChamCong" />
         <activity android:name=".QuanLyNhanVien" />
-        <activity android:name=".Menu">
+        <activity android:name=".login" />
+        <activity android:name=".Menu" />
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,10 +24,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".QuanLyPhongBan" />
-        <activity android:name=".login" />
         <activity android:name=".TestDB">
 
         </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>
