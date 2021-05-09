@@ -34,7 +34,6 @@ import java.util.Calendar;
 import java.util.List;
 
 public class ThongKe extends AppCompatActivity {
-    EditText etLuong;
     Spinner spinnerNam, spinnerMaPB, spinnerThang;
     TableLayout dataTable;
     TextView txtSoNV;
@@ -90,27 +89,6 @@ public class ThongKe extends AppCompatActivity {
         dataTable = ThongKe.this.findViewById(R.id.tableThongKe);
         txtSoNV = ThongKe.this.findViewById(R.id.txtViewTongNV);
 
-        etLuong = ThongKe.this.findViewById(R.id.etLuong);
-        etLuong.addTextChangedListener(new TextWatcher() {
-
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
-                if(!s.equals("") ) {
-                    getData();
-                }
-            }
-
-
-
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
-
-            }
-
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
 
         spinnerMaPB = ThongKe.this.findViewById(R.id.spinnerMaPB);
         spinnerMaPB.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -152,8 +130,8 @@ public class ThongKe extends AppCompatActivity {
     }
     private void getData(){
         try {
-            String luong = etLuong.getText().toString();
-            String maPB = spinnerMaPB.getSelectedItem().toString();
+            String[] tempStr = spinnerMaPB.getSelectedItem().toString().split(" ");
+            String maPB = tempStr[0];
             String nam = spinnerNam.getSelectedItem().toString();
             String thang = spinnerThang.getSelectedItem().toString();
             if(maPB.isEmpty() || nam.isEmpty() || thang.isEmpty()) return;
@@ -182,7 +160,7 @@ public class ThongKe extends AppCompatActivity {
             List<PhongBan> data = repo.getAll();
             List<String> dataList = new ArrayList<>();
             for(PhongBan i : data){
-                dataList.add(String.valueOf(i.getMaPB()));
+                dataList.add(String.valueOf(i.getMaPB()) + " - " + i.getTenPB());
             }
             ArrayAdapter<String> tempData = new ArrayAdapter<String>(ThongKe.this, android.R.layout.simple_spinner_dropdown_item, dataList);
             tempData.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

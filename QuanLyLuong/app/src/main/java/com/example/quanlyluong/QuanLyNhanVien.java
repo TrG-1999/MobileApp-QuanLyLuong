@@ -139,7 +139,8 @@ public class QuanLyNhanVien extends AppCompatActivity {
                         try {
                             String tenNV = etTenNV.getText().toString().toUpperCase();
                             String ngaySinh = etNgaySinh.getText().toString();
-                            String maPB = spinnerMaPB.getSelectedItem().toString();
+                            String[] tempStr = spinnerMaPB.getSelectedItem().toString().split(" ");
+                            String maPB = tempStr[0];
                             String mucLuong = etMucLuong.getText().toString();
                             if (notNull(tenNV).isRight() && notNull(ngaySinh).isRight() && validNumber(mucLuong).isRight()) {
                                 Date tempDate = new SimpleDateFormat("dd/MM/yyyy").parse(ngaySinh);
@@ -198,7 +199,8 @@ public class QuanLyNhanVien extends AppCompatActivity {
                                 throw new Exception("Lỗi: 'Tên nhân viên' trống");
                             temp.setHoTen(tenNV);
                             //Update PhongBan
-                            String maPB = spinnerMaPB.getSelectedItem().toString();
+                            String[] tempStr = spinnerMaPB.getSelectedItem().toString().split(" ");
+                            String maPB = tempStr[0];
                             if (validNumber(maPB).isLeft())
                                 throw new Exception("Lỗi: 'Mã phòng ban' trống");
                             temp.setMaPB(Integer.parseInt(maPB));
@@ -270,7 +272,7 @@ public class QuanLyNhanVien extends AppCompatActivity {
             List<PhongBan> data = repo.getAll();
             List<String> dataList = new ArrayList<>();
             for(PhongBan i : data){
-                dataList.add(String.valueOf(i.getMaPB()));
+                dataList.add(String.valueOf(i.getMaPB()) + " - " + i.getTenPB());
             }
             ArrayAdapter<String> tempData = new ArrayAdapter<String>(QuanLyNhanVien.this, android.R.layout.simple_spinner_dropdown_item, dataList);
             tempData.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -307,7 +309,9 @@ public class QuanLyNhanVien extends AppCompatActivity {
                         etTenNV.setText(tenNV);
                         etNgaySinh.setText(NSNV);
                         for(int i = 0; i < spinnerMaPB.getCount(); i++){
-                            if(spinnerMaPB.getItemAtPosition(i).toString().equalsIgnoreCase(maPB)){
+                            String[] tempStr = spinnerMaPB.getItemAtPosition(i).toString().split(" ");
+                            String tempPB = tempStr[0].trim();
+                            if(tempPB.equalsIgnoreCase(maPB)){
                                 spinnerMaPB.setSelection(i);
                                 break;
                             }
