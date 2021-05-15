@@ -156,17 +156,16 @@ public class TamUng extends AppCompatActivity {
                                 int maNV = Integer.parseInt(spinnerMaNV.getSelectedItem().toString());
                                 String ngayUng = etNgayUng.getText().toString();
                                 if (notNull(ngayUng).isLeft())
-                                    Toast.makeText(TamUng.this, "Lỗi: 'Ngày ứng' trống", Toast.LENGTH_SHORT).show();
+                                    throw new Exception("Lỗi: 'Ngày ứng' trống");
                                 Date tempDate = new SimpleDateFormat("dd/MM/yyyy").parse(ngayUng);
 
                                 String soTien = etSoTien.getText().toString();
                                 if (validNumber(soTien).isLeft())
-                                    Toast.makeText(TamUng.this, "Lỗi: 'Số tiền' không hợp lệ", Toast.LENGTH_SHORT).show();
+                                    throw new Exception("Lỗi: 'Số tiền' không hợp lệ");
                                 TamUng_Reposiroty repo = new TamUng_Reposiroty(TamUng.this);
                                 com.example.quanlyluong.Data.TamUng temp = new com.example.quanlyluong.Data.TamUng(-1, tempDate, maNV, Integer.parseInt(soTien));
                                 repo.create(temp);
                                 getData();
-
                             } catch (Exception e) {
                                 Toast.makeText(TamUng.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                                 e.printStackTrace();
@@ -203,16 +202,20 @@ public class TamUng extends AppCompatActivity {
 
                             String soTien = etSoTien.getText().toString();
                             if (validNumber(soTien).isLeft())
-                                Toast.makeText(TamUng.this, "Lỗi: 'Số tiền' không hợp lệ", Toast.LENGTH_SHORT).show();
+                                throw new Exception("Lỗi: 'Số tiền' không hợp lệ");
                             temp.setSoTien(Integer.parseInt(soTien));
 
                             String ngayUng = etNgayUng.getText().toString();
                             if (notNull(ngayUng).isLeft())
-                                Toast.makeText(TamUng.this, "Lỗi: 'Ngày ứng' trống", Toast.LENGTH_SHORT).show();
+                                throw new Exception("Lỗi: 'Ngày ứng' trống");
                             Date tempDate = new SimpleDateFormat("dd/MM/yyyy").parse(ngayUng);
                             temp.setNgay(tempDate);
 
                             repo.update(temp);
+                            dataTable.setClickable(false);
+                            etNgayUng.setText("");
+                            etSoPhieu.setText("");
+                            etSoTien.setText("");
                             getData();
                         } catch (Exception e) {
                             Toast.makeText(TamUng.this, e.getMessage(), Toast.LENGTH_SHORT).show();

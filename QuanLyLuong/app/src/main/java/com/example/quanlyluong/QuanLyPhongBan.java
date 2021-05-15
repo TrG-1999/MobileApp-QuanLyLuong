@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.LightingColorFilter;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -31,6 +33,7 @@ public class QuanLyPhongBan extends AppCompatActivity {
     TableLayout dataTable;
     EditText etMaPB, etTenPB;
     Button btnXoa, btnSua, btnThem;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,8 +91,8 @@ public class QuanLyPhongBan extends AppCompatActivity {
         }
     }
 
-    private void getId(){
-        dataTable =(TableLayout) QuanLyPhongBan.this.findViewById(R.id.tablePB);
+    private void getId() {
+        dataTable = (TableLayout) QuanLyPhongBan.this.findViewById(R.id.tablePB);
 
         etTenPB = (EditText) QuanLyPhongBan.this.findViewById(R.id.etTenPB);
         etMaPB = (EditText) QuanLyPhongBan.this.findViewById(R.id.etMaPB);
@@ -108,19 +111,15 @@ public class QuanLyPhongBan extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         try {
                             String tenPB = etTenPB.getText().toString().toUpperCase();
-                            if(notNull(tenPB).isRight()) {
-                                Phongban_Repository repo = new Phongban_Repository(QuanLyPhongBan.this);
-                                PhongBan phongBan = new PhongBan();
-                                phongBan.setMaPB(-1);
-                                phongBan.setTenPB(tenPB);
-                                repo.create(phongBan);
-                                getData();
-                            }
-                            else {
-                                Toast.makeText(QuanLyPhongBan.this, notNull(tenPB).getOrElse("'Tên phòng ban' trống"), Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                        catch (Exception e){
+                            if (notNull(tenPB).isLeft())
+                                throw new Exception("Lỗi: 'Tên phòng ban' trống");
+                            Phongban_Repository repo = new Phongban_Repository(QuanLyPhongBan.this);
+                            PhongBan phongBan = new PhongBan();
+                            phongBan.setMaPB(-1);
+                            phongBan.setTenPB(tenPB);
+                            repo.create(phongBan);
+                            getData();
+                        } catch (Exception e) {
                             Toast.makeText(QuanLyPhongBan.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                             e.printStackTrace();
                         }
@@ -144,19 +143,18 @@ public class QuanLyPhongBan extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         try {
                             String tenPB = etTenPB.getText().toString().toUpperCase();
+                            if (notNull(tenPB).isLeft())
+                                throw new Exception("Lỗi: 'Tên phòng ban' trống");
                             Phongban_Repository repo = new Phongban_Repository(QuanLyPhongBan.this);
                             int id = Integer.parseInt(String.valueOf(etMaPB.getText()));
                             PhongBan phongBan = repo.getById(id);
                             phongBan.setTenPB(tenPB);
-                            //-------------------------------------------------------
-
-                            //validate input data
-
-                            //-------------------------------------------------------
                             repo.update(phongBan);
+                            dataTable.setClickable(false);
+                            etMaPB.setText("");
+                            etTenPB.setText("");
                             getData();
-                        }
-                        catch (Exception e){
+                        } catch (Exception e) {
                             Toast.makeText(QuanLyPhongBan.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                             e.printStackTrace();
                         }
@@ -183,8 +181,7 @@ public class QuanLyPhongBan extends AppCompatActivity {
                             Phongban_Repository repo = new Phongban_Repository(QuanLyPhongBan.this);
                             repo.deleteById(id);
                             getData();
-                        }
-                        catch (Exception e){
+                        } catch (Exception e) {
                             Toast.makeText(QuanLyPhongBan.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                             e.printStackTrace();
                         }
@@ -196,20 +193,20 @@ public class QuanLyPhongBan extends AppCompatActivity {
         });
     }
 
-    private void getData(){
+    private void getData() {
         try {
             dataTable.removeAllViews();
             Phongban_Repository repo = new Phongban_Repository(this);
             List<PhongBan> data = repo.getAll();
-            for( PhongBan i : data){
+            for (PhongBan i : data) {
                 TableRow row = (TableRow) LayoutInflater.from(QuanLyPhongBan.this).inflate(R.layout.table_row_pb, null);
-                ((TextView)row.findViewById(R.id.tenPB)).setText(i.getTenPB());
-                ((TextView)row.findViewById(R.id.maPB)).setText((String.valueOf(i.getMaPB())));
+                ((TextView) row.findViewById(R.id.tenPB)).setText(i.getTenPB());
+                ((TextView) row.findViewById(R.id.maPB)).setText((String.valueOf(i.getMaPB())));
                 row.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        String maPB = (String) ((TextView)row.findViewById(R.id.maPB)).getText();
-                        String tenPB = (String) ((TextView)row.findViewById(R.id.tenPB)).getText();
+                        String maPB = (String) ((TextView) row.findViewById(R.id.maPB)).getText();
+                        String tenPB = (String) ((TextView) row.findViewById(R.id.tenPB)).getText();
                         etMaPB.setText(maPB);
                         etTenPB.setText(tenPB);
                     }
@@ -217,8 +214,7 @@ public class QuanLyPhongBan extends AppCompatActivity {
                 dataTable.addView(row);
             }
             dataTable.requestLayout();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
         }

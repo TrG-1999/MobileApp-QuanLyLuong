@@ -163,6 +163,10 @@ public class ChamCong extends AppCompatActivity {
                             cc.setSoNgayCong(Integer.parseInt(soNgayCong));
                             cc.setDiemThuong(Integer.parseInt(diemThuong));
                             repo.update(cc);
+                            dataTable.setClickable(false);
+                            etDiemThuong.setText("");
+                            etNgayGhi.setText("");
+                            etSoNgayCong.setText("");
                             getData();
                         } catch (ParseException e) {
                             Toast.makeText(ChamCong.this, "Lỗi: 'Ngày ghi sổ' không hợp lệ", Toast.LENGTH_SHORT).show();
@@ -197,12 +201,6 @@ public class ChamCong extends AppCompatActivity {
                             String maNV = spinnerMaNV.getSelectedItem().toString();
                             if (notNull(maNV).isLeft())
                                 throw new Exception("Lỗi: Không nhân viên nào được chọn");
-                            //ADD DATE
-//                            Date date = new Date(System.currentTimeMillis());
-//                            String ngayGhi = etNgayGhi.getText().toString();
-//                            if (notNull(ngayGhi).isLeft())
-//                                throw new Exception("Lỗi: 'Ngày ghi sổ' trống");
-//                            date = new SimpleDateFormat("dd/MM/yyyy").parse(ngayGhi);
                             Date date = new SimpleDateFormat("dd/MM/yyyy").parse((new SimpleDateFormat("dd/MM/yyyy")).format(new Date()));
 
                             //ADD so ngay cong

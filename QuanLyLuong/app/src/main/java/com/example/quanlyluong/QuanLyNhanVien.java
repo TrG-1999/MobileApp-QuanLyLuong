@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ExpandableListAdapter;
 import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -39,6 +40,7 @@ public class QuanLyNhanVien extends AppCompatActivity {
     Spinner spinnerMaPB;
     TableLayout dataTable;
     Button btnXoa, btnThem, btnSua;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -118,7 +120,7 @@ public class QuanLyNhanVien extends AppCompatActivity {
         return Either.right(number);
     }
 
-    private void getID(){
+    private void getID() {
         etMaNV = QuanLyNhanVien.this.findViewById(R.id.etMaNV);
         etMucLuong = QuanLyNhanVien.this.findViewById(R.id.etMucLuongNV);
         etNgaySinh = QuanLyNhanVien.this.findViewById(R.id.etNSNV);
@@ -142,27 +144,24 @@ public class QuanLyNhanVien extends AppCompatActivity {
                             String[] tempStr = spinnerMaPB.getSelectedItem().toString().split(" ");
                             String maPB = tempStr[0];
                             String mucLuong = etMucLuong.getText().toString();
-                            if (notNull(tenNV).isRight() && notNull(ngaySinh).isRight() && validNumber(mucLuong).isRight()) {
-                                Date tempDate = new SimpleDateFormat("dd/MM/yyyy").parse(ngaySinh);
-                                if (validDate(tempDate).isRight()) {
-                                    NV_Repository repo = new NV_Repository(QuanLyNhanVien.this);
-                                    NV temp = new NV(-1, tenNV, tempDate , Integer.parseInt(maPB), Integer.parseInt(mucLuong));
-                                    repo.create(temp);
-                                    getData();
-                                } else {
-                                    Toast.makeText(QuanLyNhanVien.this, "Lỗi: 'Ngày sinh' không hợp lệ", Toast.LENGTH_SHORT).show();
-                                }
-                            } else if (notNull(tenNV).isLeft()){
-                                Toast.makeText(QuanLyNhanVien.this, "Lỗi: 'Tên nhân viên' trống", Toast.LENGTH_SHORT).show();
-                            } else if (notNull(ngaySinh).isLeft()) {
-                                Toast.makeText(QuanLyNhanVien.this, "Lỗi: 'Ngày sinh' trống", Toast.LENGTH_SHORT).show();
-                            } else if (validNumber(mucLuong).isLeft()){
-                                Toast.makeText(QuanLyNhanVien.this, "Lỗi: 'Lương' trống", Toast.LENGTH_SHORT).show();
-                            }
+
+                            if (notNull(tenNV).isLeft())
+                                throw new Exception("Lỗi: 'Tên nhân viên' trống");
+                            if (notNull(ngaySinh).isLeft())
+                                throw new Exception("Lỗi: 'Ngày sinh' trống");
+                            if (validNumber(mucLuong).isLeft())
+                                throw new Exception("Lỗi: 'Lương' trống");
+                            Date tempDate = new SimpleDateFormat("dd/MM/yyyy").parse(ngaySinh);
+                            if (validDate(tempDate).isLeft())
+                                throw new Exception("Lỗi: 'Ngày sinh' không hợp lệ");
+                            NV_Repository repo = new NV_Repository(QuanLyNhanVien.this);
+                            NV temp = new NV(-1, tenNV, tempDate, Integer.parseInt(maPB), Integer.parseInt(mucLuong));
+                            repo.create(temp);
+                            getData();
                         } catch (ParseException e) {
                             Toast.makeText(QuanLyNhanVien.this, "Lỗi: 'Ngày sinh' không hợp lệ", Toast.LENGTH_SHORT).show();
                             e.printStackTrace();
-                        } catch (Exception e){
+                        } catch (Exception e) {
                             Toast.makeText(QuanLyNhanVien.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                             e.printStackTrace();
                         }
@@ -176,12 +175,12 @@ public class QuanLyNhanVien extends AppCompatActivity {
         btnSua.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(etMaNV.getText().toString().equalsIgnoreCase("")){
-                    Toast.makeText(QuanLyNhanVien.this,"KHONG NHAN VIEN NAO DUOC CHON", Toast.LENGTH_SHORT).show();
+                if (etMaNV.getText().toString().equalsIgnoreCase("")) {
+                    Toast.makeText(QuanLyNhanVien.this, "KHONG NHAN VIEN NAO DUOC CHON", Toast.LENGTH_SHORT).show();
                 }
                 AlertDialog.Builder builder = new AlertDialog.Builder(QuanLyNhanVien.this);
                 builder.setTitle("XAC NHAN");
-                builder.setMessage("BAN CO MUON CHINH SUA THONG TIN NHAN VIEN CO MA NHAN VIEN LA "  + etMaNV.getText().toString());
+                builder.setMessage("BAN CO MUON CHINH SUA THONG TIN NHAN VIEN CO MA NHAN VIEN LA " + etMaNV.getText().toString());
                 builder.setIcon(android.R.drawable.ic_dialog_alert);
                 builder.setPositiveButton("CO", new DialogInterface.OnClickListener() {
                     @Override
@@ -217,15 +216,19 @@ public class QuanLyNhanVien extends AppCompatActivity {
                             temp.setNgaySinh(tempDate);
 
                             repo.update(temp);
+                            dataTable.setClickable(false);
+                            etMaNV.setText("");
+                            etMucLuong.setText("");
+                            etNgaySinh.setText("");
+                            etTenNV.setText("");
                             getData();
-                        }
-                        catch (NumberFormatException e) {
-                                Toast.makeText(QuanLyNhanVien.this, "Lỗi: 'Lương' không hợp lệ", Toast.LENGTH_SHORT).show();
-                                e.printStackTrace();
+                        } catch (NumberFormatException e) {
+                            Toast.makeText(QuanLyNhanVien.this, "Lỗi: 'Lương' không hợp lệ", Toast.LENGTH_SHORT).show();
+                            e.printStackTrace();
                         } catch (ParseException e) {
                             Toast.makeText(QuanLyNhanVien.this, "Lỗi: 'Ngày sinh' không hợp lệ", Toast.LENGTH_SHORT).show();
                             e.printStackTrace();
-                        } catch (Exception e){
+                        } catch (Exception e) {
                             Toast.makeText(QuanLyNhanVien.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                             e.printStackTrace();
                         }
@@ -239,8 +242,8 @@ public class QuanLyNhanVien extends AppCompatActivity {
         btnXoa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(etMaNV.getText().toString().equalsIgnoreCase("")) {
-                    Toast.makeText(QuanLyNhanVien.this,"KHONG NHAN VIEN NAO DUOC CHON", Toast.LENGTH_SHORT).show();
+                if (etMaNV.getText().toString().equalsIgnoreCase("")) {
+                    Toast.makeText(QuanLyNhanVien.this, "KHONG NHAN VIEN NAO DUOC CHON", Toast.LENGTH_SHORT).show();
                 }
                 AlertDialog.Builder builder = new AlertDialog.Builder(QuanLyNhanVien.this);
                 builder.setTitle("XAC NHAN");
@@ -254,8 +257,7 @@ public class QuanLyNhanVien extends AppCompatActivity {
                             int id = Integer.parseInt(etMaNV.getText().toString());
                             repo.deleteById(id);
                             getData();
-                        }
-                        catch (Exception e){
+                        } catch (Exception e) {
                             Toast.makeText(QuanLyNhanVien.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                             e.printStackTrace();
                         }
@@ -266,52 +268,53 @@ public class QuanLyNhanVien extends AppCompatActivity {
             }
         });
     }
-    private void getSpinnerData(){
+
+    private void getSpinnerData() {
         try {
             Phongban_Repository repo = new Phongban_Repository(QuanLyNhanVien.this);
             List<PhongBan> data = repo.getAll();
             List<String> dataList = new ArrayList<>();
-            for(PhongBan i : data){
+            for (PhongBan i : data) {
                 dataList.add(String.valueOf(i.getMaPB()) + " - " + i.getTenPB());
             }
             ArrayAdapter<String> tempData = new ArrayAdapter<String>(QuanLyNhanVien.this, android.R.layout.simple_spinner_dropdown_item, dataList);
             tempData.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spinnerMaPB.setAdapter(tempData);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             Toast.makeText(QuanLyNhanVien.this, e.getMessage(), Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
     }
-    private void getData(){
+
+    private void getData() {
         try {
             dataTable.removeAllViews();
             NV_Repository repo = new NV_Repository(this);
             List<NV> data = repo.getAll();
-            for( NV i : data){
+            for (NV i : data) {
                 TableRow row = (TableRow) LayoutInflater.from(QuanLyNhanVien.this).inflate(R.layout.table_row_nv, null);
-                ((TextView)row.findViewById(R.id.maNV)).setText(String.valueOf(i.getMaNV()));
-                ((TextView)row.findViewById(R.id.tenNV)).setText(i.getHoTen());
-                ((TextView)row.findViewById(R.id.maPB)).setText(String.valueOf(i.getMaPB()));
-                ((TextView)row.findViewById(R.id.luongNV)).setText(String.valueOf(i.getMucLuong()));
+                ((TextView) row.findViewById(R.id.maNV)).setText(String.valueOf(i.getMaNV()));
+                ((TextView) row.findViewById(R.id.tenNV)).setText(i.getHoTen());
+                ((TextView) row.findViewById(R.id.maPB)).setText(String.valueOf(i.getMaPB()));
+                ((TextView) row.findViewById(R.id.luongNV)).setText(String.valueOf(i.getMucLuong()));
                 String tempDate = new SimpleDateFormat("dd/MM/yyyy").format(i.getNgaySinh());
-                ((TextView)row.findViewById(R.id.NSNV)).setText(tempDate);
+                ((TextView) row.findViewById(R.id.NSNV)).setText(tempDate);
                 row.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        String maNV = (String) ((TextView)row.findViewById(R.id.maNV)).getText();
-                        String tenNV = (String) ((TextView)row.findViewById(R.id.tenNV)).getText();
-                        String maPB = (String) ((TextView)row.findViewById(R.id.maPB)).getText();
-                        String luongNV = (String) ((TextView)row.findViewById(R.id.luongNV)).getText();
-                        String NSNV = (String) ((TextView)row.findViewById(R.id.NSNV)).getText();
+                        String maNV = (String) ((TextView) row.findViewById(R.id.maNV)).getText();
+                        String tenNV = (String) ((TextView) row.findViewById(R.id.tenNV)).getText();
+                        String maPB = (String) ((TextView) row.findViewById(R.id.maPB)).getText();
+                        String luongNV = (String) ((TextView) row.findViewById(R.id.luongNV)).getText();
+                        String NSNV = (String) ((TextView) row.findViewById(R.id.NSNV)).getText();
                         etMaNV.setText(maNV);
                         etMucLuong.setText(luongNV);
                         etTenNV.setText(tenNV);
                         etNgaySinh.setText(NSNV);
-                        for(int i = 0; i < spinnerMaPB.getCount(); i++){
+                        for (int i = 0; i < spinnerMaPB.getCount(); i++) {
                             String[] tempStr = spinnerMaPB.getItemAtPosition(i).toString().split(" ");
                             String tempPB = tempStr[0].trim();
-                            if(tempPB.equalsIgnoreCase(maPB)){
+                            if (tempPB.equalsIgnoreCase(maPB)) {
                                 spinnerMaPB.setSelection(i);
                                 break;
                             }
@@ -321,8 +324,7 @@ public class QuanLyNhanVien extends AppCompatActivity {
                 dataTable.addView(row);
             }
             dataTable.requestLayout();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
         }
