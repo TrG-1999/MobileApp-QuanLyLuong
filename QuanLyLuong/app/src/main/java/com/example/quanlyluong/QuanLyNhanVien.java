@@ -333,6 +333,7 @@ public class QuanLyNhanVien extends AppCompatActivity {
                 ((TextView) row.findViewById(R.id.luongNV)).setText(String.valueOf(i.getMucLuong()));
                 String tempDate = new SimpleDateFormat("dd/MM/yyyy").format(i.getNgaySinh());
                 ((TextView) row.findViewById(R.id.NSNV)).setText(tempDate);
+                ((ImageView) row.findViewById(R.id.imgViewNV)).setImageBitmap(BitmapFactory.decodeByteArray(i.getPhoto(),0,i.getPhoto().length));
                 row.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
