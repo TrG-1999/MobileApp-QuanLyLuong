@@ -1,12 +1,17 @@
 package com.example.quanlyluong;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,6 +20,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListAdapter;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -26,6 +33,8 @@ import com.example.quanlyluong.DAO.Phongban_Repository;
 import com.example.quanlyluong.Data.NV;
 import com.example.quanlyluong.Data.PhongBan;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -39,8 +48,10 @@ public class QuanLyNhanVien extends AppCompatActivity {
     EditText etMaNV, etTenNV, etNgaySinh, etMucLuong;
     Spinner spinnerMaPB;
     TableLayout dataTable;
+    ImageView img_add_nv;
     Button btnXoa, btnThem, btnSua;
-
+    ImageButton btn_add_img;
+    int REQUEST_CODE_FOLDER = 123;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -120,6 +131,21 @@ public class QuanLyNhanVien extends AppCompatActivity {
         return Either.right(number);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == REQUEST_CODE_FOLDER && resultCode == RESULT_OK && data != null){
+            Uri uri = data.getData();
+            try {
+                InputStream inputStream = getContentResolver().openInputStream(uri);
+                Bitmap bitmap = (Bitmap) BitmapFactory.decodeStream(inputStream);
+                img_add_nv.setImageBitmap(bitmap);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
     private void getID() {
         etMaNV = QuanLyNhanVien.this.findViewById(R.id.etMaNV);
         etMucLuong = QuanLyNhanVien.this.findViewById(R.id.etMucLuongNV);
@@ -128,6 +154,17 @@ public class QuanLyNhanVien extends AppCompatActivity {
         spinnerMaPB = QuanLyNhanVien.this.findViewById(R.id.spinnerMaPB);
         dataTable = QuanLyNhanVien.this.findViewById(R.id.tableNV);
         btnThem = QuanLyNhanVien.this.findViewById(R.id.btnThemNV);
+        btn_add_img = QuanLyNhanVien.this.findViewById(R.id.btn_add_img);
+
+        btn_add_img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setType("image/*");
+                startActivityForResult(intent, REQUEST_CODE_FOLDER);
+            }
+        });
+
         btnThem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
