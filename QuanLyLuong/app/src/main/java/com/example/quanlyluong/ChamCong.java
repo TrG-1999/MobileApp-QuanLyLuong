@@ -130,7 +130,7 @@ public class ChamCong extends AppCompatActivity {
         btnSua.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String maNV = spinnerMaNV.getSelectedItem().toString();
+                String maNV = Long.toString(spinnerMaNV.getSelectedItemId());
                 AlertDialog.Builder buidler = new AlertDialog.Builder(ChamCong.this);
                 buidler.setTitle("XAC NHAN");
                 buidler.setMessage("XAC NHAN SUA CHAM CONG CUA NHAN VIEN CO MA NHAN VIEN " + maNV + "?");
@@ -141,15 +141,14 @@ public class ChamCong extends AppCompatActivity {
                         try {
                             ChamCong_Repository repo = new ChamCong_Repository(ChamCong.this);
                             //UPDATE Nhan Vien
-                            String maNV = spinnerMaNV.getSelectedItem().toString();
+                            String maNV = Long.toString(spinnerMaNV.getSelectedItemId());
                             if (validNumber(maNV).isLeft())
                                 throw new Exception("Lỗi: Không nhân viên nào được chọn");
                             //UPDATE Date
-                            Date date = new Date(System.currentTimeMillis());
                             String ngayGhi = etNgayGhi.getText().toString();
                             if (notNull(ngayGhi).isLeft())
                                 throw new Exception("Lỗi: 'Ngày ghi sổ' trống");
-                            date = new SimpleDateFormat("dd/MM/yyyy").parse(ngayGhi);
+                            Date date = new SimpleDateFormat("dd/M/yyyy").parse(ngayGhi);
                             //UPDATE so ngay cong
                             String soNgayCong = etSoNgayCong.getText().toString();
                             if (validNumber(soNgayCong).isLeft())
@@ -186,7 +185,7 @@ public class ChamCong extends AppCompatActivity {
         btnThem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String maNV = spinnerMaNV.getSelectedItem().toString();
+                String maNV = Long.toString(spinnerMaNV.getSelectedItemId());
                 String date = etNgayGhi.getText().toString();
                 AlertDialog.Builder buidler = new AlertDialog.Builder(ChamCong.this);
                 buidler.setTitle("XAC NHAN");
@@ -198,7 +197,7 @@ public class ChamCong extends AppCompatActivity {
                         try {
                             ChamCong_Repository repo = new ChamCong_Repository(ChamCong.this);
                             //add NV
-                            String maNV = spinnerMaNV.getSelectedItem().toString();
+                            String maNV = Long.toString(spinnerMaNV.getSelectedItemId());
                             if (notNull(maNV).isLeft())
                                 throw new Exception("Lỗi: Không nhân viên nào được chọn");
                             Date date = new SimpleDateFormat("dd/MM/yyyy").parse((new SimpleDateFormat("dd/MM/yyyy")).format(new Date()));
@@ -231,7 +230,7 @@ public class ChamCong extends AppCompatActivity {
         btnXoa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String maNV = spinnerMaNV.getSelectedItem().toString();
+                String maNV = Long.toString(spinnerMaNV.getSelectedItemId());
                 String date = etNgayGhi.getText().toString();
                 AlertDialog.Builder buidler = new AlertDialog.Builder(ChamCong.this);
                 buidler.setTitle("XAC NHAN");
@@ -241,7 +240,7 @@ public class ChamCong extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         try {
-                            int maNV = Integer.parseInt(String.valueOf(spinnerMaNV.getSelectedItem().toString()));
+                            int maNV = (int) spinnerMaNV.getSelectedItemId();
                             ChamCong_Repository repo = new ChamCong_Repository(ChamCong.this);
                             Date date = new SimpleDateFormat("dd/MM/yyyy").parse(etNgayGhi.getText().toString());
                             com.example.quanlyluong.Data.ChamCong cc = repo.getByIdAndDate(maNV, date);
@@ -303,12 +302,14 @@ public class ChamCong extends AppCompatActivity {
             NV_Repository repo = new NV_Repository(ChamCong.this);
             List<NV> data = repo.getAll();
             List<String> dataList = new ArrayList<>();
+            List<byte[]> imageList = new ArrayList<>();
             for (NV i : data) {
-                dataList.add(String.valueOf(i.getMaNV()));
+                dataList.add((i.getMaNV()) + " - " + i.getHoTen());
+                imageList.add(i.getPhoto());
             }
-            ArrayAdapter<String> tempData = new ArrayAdapter<String>(ChamCong.this, android.R.layout.simple_spinner_dropdown_item, dataList);
-            tempData.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            spinnerMaNV.setAdapter(tempData);
+
+            CustomAdapter customAdapter=new CustomAdapter(getApplicationContext(), imageList, dataList);
+            spinnerMaNV.setAdapter(customAdapter);
         } catch (Exception e) {
             Toast.makeText(ChamCong.this, e.getMessage(), Toast.LENGTH_SHORT).show();
             e.printStackTrace();

@@ -3,6 +3,7 @@ package com.example.quanlyluong;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.CursorWindow;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.WindowManager;
@@ -10,6 +11,8 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.lang.reflect.Field;
 
 public class MainActivity extends AppCompatActivity {
     Animation slide_enter, slide_txtheader;
@@ -30,6 +33,18 @@ public class MainActivity extends AppCompatActivity {
         txt_header = MainActivity.this.findViewById(R.id.txt_header);
 
 //        imgmain.setAnimation();
+        Field field = null;
+        try {
+            field = CursorWindow.class.getDeclaredField("sCursorWindowSize");
+        } catch (NoSuchFieldException noSuchFieldException) {
+            noSuchFieldException.printStackTrace();
+        }
+        field.setAccessible(true);
+        try {
+            field.set(null, 100 * 1024 * 1024); //the 100MB is the new size
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
         txt_header.setAnimation(slide_txtheader);
 
         new Handler().postDelayed(new Runnable() {

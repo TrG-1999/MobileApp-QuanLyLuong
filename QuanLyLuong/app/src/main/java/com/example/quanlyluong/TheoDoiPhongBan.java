@@ -108,12 +108,13 @@ public class TheoDoiPhongBan extends AppCompatActivity {
                     String maPB = tempStr[0];
                     List<NV> listNV = repo.getByMaPB(maPB);
                     List<String> resultNV = new ArrayList<>();
+                    List<byte[]> imageList = new ArrayList<>();
                     for(NV i : listNV){
-                        resultNV.add(String.valueOf(i.getMaNV()) + " - " + i.getHoTen());
+                        resultNV.add(i.getMaNV() + " - " + i.getHoTen());
+                        imageList.add(i.getPhoto());
                     }
-                    ArrayAdapter<String> tempData = new ArrayAdapter<String>(TheoDoiPhongBan.this, android.R.layout.simple_spinner_dropdown_item, resultNV);
-                    tempData.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    spinnerMaNV.setAdapter(tempData);
+                    CustomAdapter customAdapter=new CustomAdapter(getApplicationContext(), imageList, resultNV);
+                    spinnerMaNV.setAdapter(customAdapter);
                     txtTongNV.setText(String.valueOf(listNV.size()));
                     // do du lieu len table
                     tableNV.removeAllViews();
@@ -145,8 +146,7 @@ public class TheoDoiPhongBan extends AppCompatActivity {
                 try {
                     NV_Repository repoNV = new NV_Repository(TheoDoiPhongBan.this);
                     ChamCong_Repository repo = new ChamCong_Repository(TheoDoiPhongBan.this);
-                    String[] tempStr = spinnerMaNV.getSelectedItem().toString().split("-");
-                    String maNV = tempStr[0];
+                    String maNV = Long.toString(spinnerMaNV.getSelectedItemId());
                     maNV = maNV.trim();
                     List<com.example.quanlyluong.Data.ChamCong> listCC = repo.getByMaNV(maNV);
                     NV tempNV = repoNV.getById(Integer.parseInt(maNV));
@@ -189,8 +189,7 @@ public class TheoDoiPhongBan extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(radioNV.isChecked()){
-                    String[] tempStr = spinnerMaNV.getSelectedItem().toString().split("-");
-                    String maNV = tempStr[0];
+                    String maNV = Long.toString(spinnerMaNV.getSelectedItemId());
                     //activity in NV
                     Intent intent_nv = new Intent(TheoDoiPhongBan.this, InNhanVien.class);
                     intent_nv.putExtra("maNV", maNV);

@@ -143,8 +143,8 @@ public class TamUng extends AppCompatActivity {
         btnThem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (notNull(spinnerMaNV.getSelectedItem()).isRight()) {
-                    int maNV = Integer.parseInt(spinnerMaNV.getSelectedItem().toString());
+                if (notNull(spinnerMaNV.getSelectedItemId()).isRight()) {
+                    int maNV = (int) spinnerMaNV.getSelectedItemId();
                     AlertDialog.Builder builder = new AlertDialog.Builder(TamUng.this);
                     builder.setTitle("XAC NHAN");
                     builder.setMessage("XAC NHAN TAM UNG MOI CUA NHAN VIEN " + maNV + "?");
@@ -153,11 +153,11 @@ public class TamUng extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             try {
-                                int maNV = Integer.parseInt(spinnerMaNV.getSelectedItem().toString());
+                                int maNV = (int) spinnerMaNV.getSelectedItemId();
                                 String ngayUng = etNgayUng.getText().toString();
                                 if (notNull(ngayUng).isLeft())
                                     throw new Exception("Lỗi: 'Ngày ứng' trống");
-                                Date tempDate = new SimpleDateFormat("dd/MM/yyyy").parse(ngayUng);
+                                Date tempDate = new SimpleDateFormat("dd/M/yyyy").parse(ngayUng);
 
                                 String soTien = etSoTien.getText().toString();
                                 if (validNumber(soTien).isLeft())
@@ -175,7 +175,7 @@ public class TamUng extends AppCompatActivity {
                     builder.setNegativeButton("KHONG", null);
                     builder.show();
                 } else {
-                    showToast(TamUng.this, notNull(spinnerMaNV.getSelectedItem()).getLeft());
+                    showToast(TamUng.this, notNull(spinnerMaNV.getSelectedItemId()).getLeft());
                 }
             }
         });
@@ -198,7 +198,7 @@ public class TamUng extends AppCompatActivity {
                             String id = etSoPhieu.getText().toString();
                             TamUng_Reposiroty repo = new TamUng_Reposiroty(TamUng.this);
                             com.example.quanlyluong.Data.TamUng temp = repo.getById(Integer.parseInt(id));
-                            temp.setMaNV(Integer.parseInt(spinnerMaNV.getSelectedItem().toString()));
+                            temp.setMaNV((int) spinnerMaNV.getSelectedItemId());
 
                             String soTien = etSoTien.getText().toString();
                             if (validNumber(soTien).isLeft())
@@ -303,12 +303,14 @@ public class TamUng extends AppCompatActivity {
             NV_Repository repo = new NV_Repository(TamUng.this);
             List<NV> data = repo.getAll();
             List<String> dataList = new ArrayList<>();
+            List<byte[]> imageList = new ArrayList<>();
             for (NV i : data) {
-                dataList.add(String.valueOf(i.getMaNV()));
+                dataList.add((i.getMaNV()) + " - " + i.getHoTen());
+                imageList.add(i.getPhoto());
             }
-            ArrayAdapter<String> tempData = new ArrayAdapter<String>(TamUng.this, android.R.layout.simple_spinner_dropdown_item, dataList);
-            tempData.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            spinnerMaNV.setAdapter(tempData);
+
+            CustomAdapter customAdapter=new CustomAdapter(getApplicationContext(), imageList, dataList);
+            spinnerMaNV.setAdapter(customAdapter);
         } catch (Exception e) {
             Toast.makeText(TamUng.this, e.getMessage(), Toast.LENGTH_SHORT).show();
             e.printStackTrace();
