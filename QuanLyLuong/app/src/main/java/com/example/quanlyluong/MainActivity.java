@@ -23,13 +23,13 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.activity_main);
         //Animation
-        slide_enter = AnimationUtils.loadAnimation(this, R.anim.anim_logomain);
-        slide_txtheader = AnimationUtils.loadAnimation(this, R.anim.anim_txt_header_login);
+        slide_enter = AnimationUtils.loadAnimation(MainActivity.this, R.anim.anim_logomain);
+        slide_txtheader = AnimationUtils.loadAnimation(MainActivity.this, R.anim.anim_txt_header_login);
         //Reflection
-        imgmain = findViewById(R.id.imgmain);
-        txt_header = findViewById(R.id.txt_header);
+        imgmain = MainActivity.this.findViewById(R.id.imgmain);
+        txt_header = MainActivity.this.findViewById(R.id.txt_header);
 
-        imgmain.setAnimation(slide_enter);
+//        imgmain.setAnimation();
         txt_header.setAnimation(slide_txtheader);
 
         new Handler().postDelayed(new Runnable() {

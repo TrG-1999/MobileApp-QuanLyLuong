@@ -8,6 +8,15 @@ public class NV {
     private Date ngaySinh;
     private int maPB;
     private int mucLuong;
+    private byte[] photo;
+    public byte[] getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(byte[] photo) {
+        this.photo = photo;
+    }
+
 
     public void setMaNV(int maNV) {
         this.maNV = maNV;
@@ -52,22 +61,12 @@ public class NV {
     public NV() {
     }
 
-    public NV(int maNV, String hoTen, Date ngaySinh, int maPB, int mucLuong) {
+    public NV(int maNV, String hoTen, Date ngaySinh, int maPB, int mucLuong, byte[] photo) {
         this.maNV = maNV;
         this.hoTen = hoTen;
         this.ngaySinh = ngaySinh;
         this.maPB = maPB;
         this.mucLuong = mucLuong;
-    }
-
-    @Override
-    public String toString() {
-        return "NV{" +
-                "maNV=" + maNV +
-                ", hoTen='" + hoTen + '\'' +
-                ", ngaySinh=" + ngaySinh +
-                ", maPB=" + maPB +
-                ", mucLuong=" + mucLuong +
-                '}';
+        this.photo = photo;
     }
 }

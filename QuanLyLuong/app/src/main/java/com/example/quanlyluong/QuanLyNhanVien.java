@@ -3,10 +3,20 @@ package com.example.quanlyluong;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,6 +25,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListAdapter;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -26,6 +37,7 @@ import com.example.quanlyluong.DAO.Phongban_Repository;
 import com.example.quanlyluong.Data.NV;
 import com.example.quanlyluong.Data.PhongBan;
 
+import java.io.ByteArrayOutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -36,11 +48,12 @@ import io.vavr.control.Either;
 
 
 public class QuanLyNhanVien extends AppCompatActivity {
+    private  static int RESULT_LOAD_IMAGE=1;
     EditText etMaNV, etTenNV, etNgaySinh, etMucLuong;
     Spinner spinnerMaPB;
     TableLayout dataTable;
     Button btnXoa, btnThem, btnSua;
-
+    ImageView imgViewNV;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -128,6 +141,24 @@ public class QuanLyNhanVien extends AppCompatActivity {
         spinnerMaPB = QuanLyNhanVien.this.findViewById(R.id.spinnerMaPB);
         dataTable = QuanLyNhanVien.this.findViewById(R.id.tableNV);
         btnThem = QuanLyNhanVien.this.findViewById(R.id.btnThemNV);
+        imgViewNV = QuanLyNhanVien.this.findViewById(R.id.imgViewNV);
+        imgViewNV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final int REQUEST_EXTERNAL_STORAGE = 1;
+                String[] PERMISSIONS_STORAGE = {
+                        Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE };
+                if (ContextCompat.checkSelfPermission(QuanLyNhanVien.this,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(QuanLyNhanVien.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 101);
+                } else {
+                    Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    startActivityForResult(i, RESULT_LOAD_IMAGE);
+
+                }
+            }
+        });
         btnThem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -155,7 +186,8 @@ public class QuanLyNhanVien extends AppCompatActivity {
                             if (validDate(tempDate).isLeft())
                                 throw new Exception("Lỗi: 'Ngày sinh' không hợp lệ");
                             NV_Repository repo = new NV_Repository(QuanLyNhanVien.this);
-                            NV temp = new NV(-1, tenNV, tempDate, Integer.parseInt(maPB), Integer.parseInt(mucLuong));
+                            byte[] tempImgNV = imageViewToByte(imgViewNV);
+                            NV temp = new NV(-1, tenNV, tempDate, Integer.parseInt(maPB), Integer.parseInt(mucLuong), tempImgNV);
                             repo.create(temp);
                             getData();
                         } catch (ParseException e) {
@@ -214,6 +246,8 @@ public class QuanLyNhanVien extends AppCompatActivity {
                                 throw new Exception("Lỗi: 'Ngày sinh' trống");
                             Date tempDate = new SimpleDateFormat("dd/MM/yyyy").parse(ngaySinh);
                             temp.setNgaySinh(tempDate);
+                            byte[] tempImgNV = imageViewToByte(imgViewNV);
+                            temp.setPhoto(tempImgNV);
 
                             repo.update(temp);
                             dataTable.setClickable(false);
@@ -319,6 +353,8 @@ public class QuanLyNhanVien extends AppCompatActivity {
                                 break;
                             }
                         }
+
+                        imgViewNV.setImageBitmap(BitmapFactory.decodeByteArray(i.getPhoto(),0 , i.getPhoto().length));
                     }
                 });
                 dataTable.addView(row);
@@ -329,5 +365,27 @@ public class QuanLyNhanVien extends AppCompatActivity {
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
-
+    public static byte[] imageViewToByte(ImageView image) {
+        Bitmap bitmap = ((BitmapDrawable)image.getDrawable()).getBitmap();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] byteArray = stream.toByteArray();
+        return byteArray;
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
+            Uri selectedImage = data.getData();
+            String[] filePathColumn = { MediaStore.Images.Media.DATA };
+            Cursor cursor = getContentResolver().query(selectedImage,
+                    filePathColumn, null, null, null);
+            cursor.moveToFirst();
+            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+            String picturePath = cursor.getString(columnIndex);
+            cursor.close();
+            ImageView imageView = (ImageView) findViewById(R.id.imgViewNV);
+            imageView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+        }
+    }
 }

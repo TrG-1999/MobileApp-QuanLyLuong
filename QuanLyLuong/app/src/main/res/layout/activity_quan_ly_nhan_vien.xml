@@ -2,268 +2,286 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+
     tools:context=".QuanLyNhanVien">
 
-    <TextView
-        android:id="@+id/textView14"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="#2196F3"
-        android:gravity="center"
-        android:text="Quản Lý Nhân Viên"
-        android:textColor="#ffffff"
-        android:textSize="30sp"
-        android:textStyle="bold" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="8dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/textView15"
-            android:layout_width="86dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.4"
-            android:gravity="center_vertical"
-            android:paddingLeft="5dp"
-            android:text="Mã NV"
-            android:textSize="18sp" />
-
-        <EditText
-            android:id="@+id/etMaNV"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="0.6"
-            android:ems="10"
-            android:focusable="false"
-            android:inputType="textPersonName" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="8dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/textView16"
-            android:layout_width="86dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.4"
-            android:gravity="center_vertical"
-            android:paddingLeft="5dp"
-            android:text="Tên NV"
-            android:textSize="18sp" />
-
-        <EditText
-            android:id="@+id/etTenNV"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="0.6"
-            android:ems="10"
-            android:inputType="textPersonName" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="8dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/textView17"
-            android:layout_width="86dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.4"
-            android:gravity="center_vertical"
-            android:paddingLeft="5dp"
-            android:text="Ngày Sinh"
-            android:textSize="18sp" />
-
-        <EditText
-            android:id="@+id/etNSNV"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="0.6"
-            android:ems="10"
-            android:hint="dd/MM/yyyy"
-            android:inputType="date" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="8dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/textView18"
-            android:layout_width="93dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.1"
-            android:gravity="center_vertical"
-            android:paddingLeft="5dp"
-            android:text="Mã phòng ban"
-            android:textSize="18sp" />
-
-        <Spinner
-            android:id="@+id/spinnerMaPB"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="0.6" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="8dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/textView19"
-            android:layout_width="69dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.4"
-            android:gravity="center_vertical"
-            android:paddingLeft="5dp"
-            android:text="Mức lương"
-            android:textSize="18sp" />
-
-        <EditText
-            android:id="@+id/etMucLuongNV"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="0.4"
-            android:ems="10"
-            android:inputType="number" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/btnXoaNV"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="5dp"
-            android:layout_weight="0.25"
-            android:text="Xóa"
-            app:backgroundTint="#E91E63" />
-
-        <Button
-            android:id="@+id/btnSuaNV"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="5dp"
-            android:layout_weight="0.25"
-            android:text="Chỉnh sửa"
-            android:textColor="#000000"
-            app:backgroundTint="#FFEB3B" />
-
-        <Button
-            android:id="@+id/btnThemNV"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="5dp"
-            android:layout_weight="0.3"
-            android:text="Thêm"
-            app:backgroundTint="#4CAF50" />
-    </LinearLayout>
-
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:stretchColumns="*">
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:weightSum="1">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_column="0"
-                android:layout_weight="0.2"
-                android:padding="3dp"
-                android:text="Mã NV"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:background="@drawable/table_row_border_pb" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_column="1"
-                android:layout_weight="0.5"
-                android:padding="3dp"
-                android:text="Tên Nhân Viên"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:background="@drawable/table_row_border_pb" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_column="2"
-                android:layout_weight="0"
-                android:padding="3dp"
-                android:text="Ngày sinh"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:background="@drawable/table_row_border_pb" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_column="3"
-                android:layout_weight="0.2"
-                android:padding="3dp"
-                android:text="Mã P.Ban"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:background="@drawable/table_row_border_pb" />
-
-            <TextView
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:layout_column="4"
-                android:layout_weight="0.5"
-                android:padding="3dp"
-                android:text="Mức lương"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:background="@drawable/table_row_border_pb" />
-        </TableRow>
-
-    </TableLayout>
-
     <ScrollView
-
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scrollbars="horizontal">
-
-        <TableLayout
-            android:id="@+id/tableNV"
-            android:layout_width="match_parent"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:stretchColumns="*">
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/textView14"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="#2196F3"
+                android:gravity="center"
+                android:text="Quản Lý Nhân Viên"
+                android:textColor="#ffffff"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="150dp">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/imgViewNV"
+                    android:src="@drawable/employee"></ImageView>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
 
-        </TableLayout>
+                <TextView
+                    android:id="@+id/textView15"
+                    android:layout_width="86dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.4"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="5dp"
+                    android:text="Mã NV"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/etMaNV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.6"
+                    android:ems="10"
+                    android:focusable="false"
+                    android:inputType="textPersonName" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView16"
+                    android:layout_width="86dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.4"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="5dp"
+                    android:text="Tên NV"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/etTenNV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.6"
+                    android:ems="10"
+                    android:inputType="textPersonName" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView17"
+                    android:layout_width="86dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.4"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="5dp"
+                    android:text="Ngày Sinh"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/etNSNV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.6"
+                    android:ems="10"
+                    android:hint="dd/MM/yyyy"
+                    android:inputType="date" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView18"
+                    android:layout_width="93dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.1"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="5dp"
+                    android:text="Mã phòng ban"
+                    android:textSize="18sp" />
+
+                <Spinner
+                    android:id="@+id/spinnerMaPB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.6" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView19"
+                    android:layout_width="69dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.4"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="5dp"
+                    android:text="Mức lương"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/etMucLuongNV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.4"
+                    android:ems="10"
+                    android:inputType="number" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnXoaNV"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:layout_weight="0.25"
+                    android:text="Xóa"
+                    app:backgroundTint="#E91E63" />
+
+                <Button
+                    android:id="@+id/btnSuaNV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:layout_weight="0.25"
+                    android:text="Chỉnh sửa"
+                    android:textColor="#000000"
+                    app:backgroundTint="#FFEB3B" />
+
+                <Button
+                    android:id="@+id/btnThemNV"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:layout_weight="0.3"
+                    android:text="Thêm"
+                    app:backgroundTint="#4CAF50" />
+            </LinearLayout>
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:stretchColumns="*">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:weightSum="1">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_column="0"
+                        android:layout_weight="0.2"
+                        android:padding="3dp"
+                        android:text="Mã NV"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:background="@drawable/table_row_border_pb" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_column="1"
+                        android:layout_weight="0.5"
+                        android:padding="3dp"
+                        android:text="Tên Nhân Viên"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:background="@drawable/table_row_border_pb" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_column="2"
+                        android:layout_weight="0"
+                        android:padding="3dp"
+                        android:text="Ngày sinh"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:background="@drawable/table_row_border_pb" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_column="3"
+                        android:layout_weight="0.2"
+                        android:padding="3dp"
+                        android:text="Mã P.Ban"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:background="@drawable/table_row_border_pb" />
+
+                    <TextView
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_column="4"
+                        android:layout_weight="0.5"
+                        android:padding="3dp"
+                        android:text="Mức lương"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:background="@drawable/table_row_border_pb" />
+                </TableRow>
+
+            </TableLayout>
+
+            <ScrollView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="horizontal">
+
+                <TableLayout
+                    android:id="@+id/tableNV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:stretchColumns="*">
+
+                </TableLayout>
+            </ScrollView>
+        </LinearLayout>
     </ScrollView>
 </LinearLayout>

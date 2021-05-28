@@ -94,6 +94,32 @@ public class ChamCong_Repository extends DatabaseHelper implements DAO<ChamCong>
         cursor.close();
         return result;
     }
+    public List<ChamCong> getByMaNV(String maNV) throws Exception{
+        List<ChamCong> result = new ArrayList<>();
+        String queryST = "SELECT * FROM CHAMCONG WHERE " + MANV_COLMN + " = '" + maNV + "'";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(queryST, null);
+        if(cursor.moveToFirst()){
+            ChamCong temp = new ChamCong();
+            temp.setMaNV(cursor.getInt(0));
+            String[] tempStr = cursor.getString(1).split(" ");
+
+            Date date1 = new SimpleDateFormat("MMM", Locale.ENGLISH).parse(tempStr[1]);
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(date1);
+            int month = cal.get(Calendar.MONTH) + 1;
+            String dateStr = String.valueOf(month) + " " + tempStr[2] + " " + tempStr[tempStr.length-1];
+
+            Date tempDate = new SimpleDateFormat("MM dd yyyy").parse(dateStr);
+            temp.setNgayGhiSo(tempDate);
+            temp.setSoNgayCong(cursor.getInt(2));
+            temp.setDiemThuong(cursor.getInt(3));
+            result.add(temp);
+        }
+        db.close();
+        cursor.close();
+        return result;
+    }
 
     @Override
     public boolean deleteAll() throws Exception {

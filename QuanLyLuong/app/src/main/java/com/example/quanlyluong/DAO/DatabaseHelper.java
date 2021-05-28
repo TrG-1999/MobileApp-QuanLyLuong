@@ -24,6 +24,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     protected static final String NGAYGHISO_COLUMN = "NGAYGHISO";
     protected static final String SONGAYCONG_COLUMN = "SONGAYCONG";
     protected static final String DIEMTHUONG_COLUMN = "DIEMTHUONG";
+    protected static final String PHOTO_COLUMN = "PHOTO";
     SQLiteDatabase temp;
     public DatabaseHelper(Context context) {
         super(context, "QUAN_LI_LUONG", null, 1);
@@ -48,6 +49,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "  \tNGAYSINH DATETIME NOT NULL,\n" +
                 "  \tMAPB INT NOT NULL,\n" +
                 "  \tMUCLUONG INT NOT NULL,\n" +
+                "  \tPHOTO BLOB NOT NULL, \n" +
                 " \tCONSTRAINT fk_PHONGBAN_NV\n" +
                 "    \tFOREIGN KEY (MAPB)\n" +
                 "    \tREFERENCES PHONGBAN(MAPB)\n" +
