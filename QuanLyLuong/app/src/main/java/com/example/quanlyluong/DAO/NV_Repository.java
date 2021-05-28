@@ -12,6 +12,7 @@ import com.example.quanlyluong.Data.NV_ThongKe;
 import com.example.quanlyluong.ThongKe;
 
 import java.lang.reflect.Field;
+import java.sql.Blob;
 import java.text.SimpleDateFormat;
 import java.time.Month;
 import java.util.ArrayList;
@@ -187,15 +188,23 @@ public class NV_Repository extends DatabaseHelper implements DAO<NV> {
     @Override
     public boolean update(NV nv) throws Exception {
         SQLiteDatabase db = this.getWritableDatabase();
-        String queryST = "UPDATE "+  this.NHANVIEN_TABLE + " SET " +
-                this.HOTEN_COLUMN + " = '" + nv.getHoTen() + "', " +
-                this.NGAYSINH_COLUMN + " = '" + nv.getNgaySinh().toString() + "', " +
-                this.MAPB_COLUMN + " = '" + nv.getMaPB() + "', " +
-                this.MUCLUONG_COLUMN + " = '" + nv.getMucLuong() + "' "  +
-                this.PHOTO_COLUMN + " = '" + nv.getPhoto() + "' "  +
-                " WHERE " + MANV_COLMN + " = '" +  nv.getMaNV() + "'";
-        Cursor cursor = db.rawQuery(queryST, null);
-        if(cursor.moveToFirst()) return true;
+//        String queryST = "UPDATE "+  this.NHANVIEN_TABLE + " SET " +
+//                this.HOTEN_COLUMN + " = '" + nv.getHoTen() + "', " +
+//                this.NGAYSINH_COLUMN + " = '" + nv.getNgaySinh().toString() + "', " +
+//                this.MAPB_COLUMN + " = '" + nv.getMaPB() + "', " +
+//                this.MUCLUONG_COLUMN + " = '" + nv.getMucLuong() + "' "  +
+//                this.PHOTO_COLUMN + " = '" + nv.getPhoto() + "' "  +
+//                " WHERE " + MANV_COLMN + " = '" +  nv.getMaNV() + "'";
+//        Cursor cursor = db.rawQuery(queryST, null);
+        String filter = "MANV=" + nv.getMaNV();
+        ContentValues cv = new ContentValues();
+        cv.put(this.HOTEN_COLUMN, nv.getHoTen());
+        cv.put(this.NGAYSINH_COLUMN, nv.getNgaySinh().toString());
+        cv.put(MAPB_COLUMN, nv.getMaPB());
+        cv.put(MUCLUONG_COLUMN, nv.getMucLuong());
+        cv.put(PHOTO_COLUMN, nv.getPhoto());
+        long update = db.update(this.NHANVIEN_TABLE, cv, filter, null);
+        db.close();
         return false;
     }
     public List<NV_ThongKe> thongKe(String maPB, String thang, String nam) throws Exception{
