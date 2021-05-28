@@ -25,14 +25,11 @@ public class MainActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_main);
-        //Animation
         slide_enter = AnimationUtils.loadAnimation(MainActivity.this, R.anim.anim_logomain);
         slide_txtheader = AnimationUtils.loadAnimation(MainActivity.this, R.anim.anim_txt_header_login);
-        //Reflection
         imgmain = MainActivity.this.findViewById(R.id.imgmain);
         txt_header = MainActivity.this.findViewById(R.id.txt_header);
 
-//        imgmain.setAnimation();
         Field field = null;
         try {
             field = CursorWindow.class.getDeclaredField("sCursorWindowSize");
@@ -56,6 +53,5 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         }, 2000);
-
     }
 }

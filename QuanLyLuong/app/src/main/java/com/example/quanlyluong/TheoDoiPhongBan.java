@@ -97,7 +97,6 @@ public class TheoDoiPhongBan extends AppCompatActivity {
         btnIn = TheoDoiPhongBan.this.findViewById(R.id.btnIn);
         radioNV = TheoDoiPhongBan.this.findViewById(R.id.radioNV);
         radioTH = TheoDoiPhongBan.this.findViewById(R.id.radioTH);
-
         spinnerTenPB.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -134,7 +133,6 @@ public class TheoDoiPhongBan extends AppCompatActivity {
                 }
 
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 return;
@@ -163,7 +161,7 @@ public class TheoDoiPhongBan extends AppCompatActivity {
                         }
                         ((TextView) row.findViewById(R.id.thoigian)).setText(tempDate);
                         ((TextView) row.findViewById(R.id.ngay)).setText(String.valueOf(i.getSoNgayCong()));
-                        int tempLuongTable = tempNV.getMucLuong() * i.getSoNgayCong();
+                        int tempLuongTable = (tempNV.getMucLuong() * i.getSoNgayCong())/26;
                         ((TextView) row.findViewById(R.id.luong)).setText(String.valueOf(tempLuongTable));
                         tongLuong += tempLuongTable;
                         tableLuongNV.addView(row);
@@ -178,13 +176,11 @@ public class TheoDoiPhongBan extends AppCompatActivity {
                 }
 
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 return;
             }
         });
-
         btnIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
