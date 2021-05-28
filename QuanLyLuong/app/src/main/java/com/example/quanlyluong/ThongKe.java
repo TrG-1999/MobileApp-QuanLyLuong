@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -24,10 +25,19 @@ import android.widget.Toast;
 
 import com.example.quanlyluong.DAO.NV_Repository;
 import com.example.quanlyluong.DAO.Phongban_Repository;
-import com.example.quanlyluong.Data.NV;
 import com.example.quanlyluong.Data.NV_ThongKe;
 import com.example.quanlyluong.Data.PhongBan;
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.LegendEntry;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.utils.ColorTemplate;
 
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -35,7 +45,6 @@ import java.util.List;
 
 public class ThongKe extends AppCompatActivity {
     Spinner spinnerNam, spinnerMaPB, spinnerThang;
-    TableLayout dataTable;
     TextView txtSoNV;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +52,31 @@ public class ThongKe extends AppCompatActivity {
         setContentView(R.layout.activity_thong_ke);
         getID();
         getSpinnerData();
+
+        BarChart chart = (BarChart) findViewById(R.id.chart);
+        Description description = chart.getDescription();
+        description.setText("Điểm thưởng");
+        chart.animateXY(2000, 2000);
+        chart.invalidate();
+    }
+
+    private ArrayList chartData(List<NV_ThongKe> data) {
+        ArrayList dataSets = null;
+
+        ArrayList valueSet = new ArrayList();
+        BarEntry entry;
+        int index = 0;
+        for(NV_ThongKe i : data){
+            entry = new BarEntry(index++, i.getTongLuong());
+            valueSet.add(entry);
+        }
+
+        BarDataSet barDataSet1 = new BarDataSet(valueSet, "Brand 1");
+        barDataSet1.setColors(ColorTemplate.COLORFUL_COLORS);
+
+        dataSets = new ArrayList();
+        dataSets.add(barDataSet1);
+        return dataSets;
     }
 
     @Override
@@ -86,7 +120,6 @@ public class ThongKe extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
     private void getID(){
-        dataTable = ThongKe.this.findViewById(R.id.tableThongKe);
         txtSoNV = ThongKe.this.findViewById(R.id.txtViewTongNV);
 
 
@@ -135,19 +168,26 @@ public class ThongKe extends AppCompatActivity {
             String nam = spinnerNam.getSelectedItem().toString();
             String thang = spinnerThang.getSelectedItem().toString();
             if(maPB.isEmpty() || nam.isEmpty() || thang.isEmpty()) return;
-            dataTable.removeAllViews();
             NV_Repository repo = new NV_Repository(this);
             List<NV_ThongKe> data = repo.thongKe(maPB, thang, nam);
-            for( NV_ThongKe i : data){
-                TableRow row = (TableRow) LayoutInflater.from(ThongKe.this).inflate(R.layout.table_row_thongke, null);
-                ((TextView)row.findViewById(R.id.maNV)).setText(String.valueOf(i.getMaNV()));
-                ((TextView)row.findViewById(R.id.tenNV)).setText(i.getTenNV());
-                ((TextView)row.findViewById(R.id.maPB)).setText(String.valueOf(i.getMaPB()));
-                ((TextView)row.findViewById(R.id.luong)).setText(String.valueOf(i.getTongLuong()));
-                dataTable.addView(row);
+
+            BarChart chart = findViewById(R.id.chart);
+
+            BarData barData = new BarData(chartData(data));
+            chart.setData(barData);
+            chart.invalidate();
+            Legend l = chart.getLegend();
+            LegendEntry[] entryLegends = l.getEntries();
+            l.setFormSize(10f);
+            l.setForm(Legend.LegendForm.CIRCLE);
+            l.setXEntrySpace(35f);
+            int index = 0;
+            NV_ThongKe nv;
+            for(LegendEntry i : entryLegends){
+                nv = data.get(index++);
+                i.label = nv.getMaNV()+ "-" + nv.getTenNV();
             }
             txtSoNV.setText("Tổng NV: " + data.size());
-            dataTable.requestLayout();
         }
         catch (Exception e){
             e.printStackTrace();
