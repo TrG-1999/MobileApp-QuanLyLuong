@@ -54,7 +54,7 @@ public class InTongHop extends AppCompatActivity {
                 List<com.example.quanlyluong.Data.ChamCong> listCC = repoCC.getByMaNV(String.valueOf(nv.getMaNV()));
                 List<String> thang = new ArrayList<>();
                 for(ChamCong cc : listCC){
-                    int tempLuong = cc.getSoNgayCong() * nv.getMucLuong();
+                    int tempLuong = (nv.getMucLuong() * cc.getSoNgayCong())/26;
                     tongLuong += tempLuong;
                     TableRow row = (TableRow) LayoutInflater.from(InTongHop.this).inflate(R.layout.table_in_nv, null);
                     ((TextView) row.findViewById(R.id.ngay)).setText(String.valueOf(cc.getSoNgayCong()));
