@@ -66,7 +66,7 @@ public class InNhanVien extends AppCompatActivity {
             List<ChamCong> listCC = repoCC.getByMaNV(maNV);
             List<String> thang = new ArrayList<>();
             for(ChamCong i : listCC){
-                int tempLuong = i.getSoNgayCong() * nv.getMucLuong();
+                int tempLuong = (nv.getMucLuong() * i.getSoNgayCong())/26;
                 tongLuong += tempLuong;
                 TableRow row = (TableRow) LayoutInflater.from(InNhanVien.this).inflate(R.layout.table_in_nv, null);
                 ((TextView) row.findViewById(R.id.ngay)).setText(String.valueOf(i.getSoNgayCong()));
